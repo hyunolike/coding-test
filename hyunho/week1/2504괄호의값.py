@@ -1,38 +1,3 @@
-9012 괄호 / 2504 괄호의 값
-
-
-## 9012 괄호
-
-```python
-n = int(input())
-
-def check(list):
-    stack = []
-
-    for i in list:
-        if i == "(":
-            stack.append(i)
-        else:
-            if not stack:
-                print("NO")
-                return
-            else:
-                stack.pop()
-    if not stack:
-        print("YES")
-        return
-    else:
-        print("NO")
-        return
-
-for _ in range(n):
-    list = input()
-    check(list)
-```
-
-## 2504 괄호의 값
-
-```python
 import sys
 
 str = sys.stdin.readline().rstrip() # (()())
@@ -68,7 +33,7 @@ for i in str:
             if top == "[":
                 if temp == 0:
                     stack.append(3) 
-                else
+                else:
                     stack.append(3 * temp)
                 break
             elif top == "(":
@@ -93,4 +58,3 @@ for i in stack:
         result += i
 
 print(result)
-```

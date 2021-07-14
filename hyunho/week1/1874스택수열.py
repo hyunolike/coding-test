@@ -1,25 +1,3 @@
-## 10773 제로
-
-```python
-num = int(input())
-stack = []
-
-for _ in range(num):
-
-    n = int(input())
-
-    if n == 0:
-        stack.pop()
-    else:
-        stack.append(n)
-
-print(sum(stack))
-
-```
-
-## 1874 스택수열
-
-```python
 import sys
 T = int(input())
 count = 1
@@ -40,6 +18,3 @@ for i in range(1, T + 1):
         sys.exit(0)
 
 print('\n'.join(result))
-
-```
-
