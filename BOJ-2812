@@ -1,0 +1,17 @@
+
+
+N,A = map(int,input().split())
+K = list(input().strip())
+arr =[]
+M = A
+
+for i in range(N):
+    while M > 0 and arr and arr[-1] < K[i]:
+        arr.pop()
+        M = M -1
+    arr.append(K[i])
+
+for j in arr[:N-A]:
+    print(j,end="")
+
+
