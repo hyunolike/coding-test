@@ -26,27 +26,3 @@ while turns:
     result.append(card[0])
 
 print('\n'.join(map(str, result)))
-
-
-'''
-while True:
-
-    if queue[내차례]에 연산카드가 있나?
-        있으면 수행. 없으면 continue
-        
-    card = cards.popleft()
-    if next:
-        pass
-    elif release:
-        privateCards.remove(card[2])
-    else acquire:
-        if privateCard에 있으면: -> 못 가져옴
-            queue[내차례].append(카드)
-        else: private에 없으면 -> 가져올 수 있음
-            queue[내차례].append(ac의 숫자만) -> 굳이 필요있나??
-            privateCards.append(카드숫자, 내 turn)
-    result.append(card[0])
-            
-'''
-
-
