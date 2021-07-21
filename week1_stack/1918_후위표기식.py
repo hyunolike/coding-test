@@ -37,5 +37,35 @@ def solution(s):
     print(answer)
 
 
+def best_solution(exp):
+    answer = ''
+    stack = []
+
+    for e in exp:
+        if e == '(':
+            stack.append(e)
+        elif e == ')':
+            while stack and stack[-1]!='(':
+                answer += stack.pop()
+            stack.pop()
+        elif e in ['+','-']:
+            while stack and stack[-1] in ['+','-','*','/']:
+                top = stack.pop()
+                answer += top
+            stack.append(e)
+        elif e in ['*','/']:
+            while stack and stack[-1] in ['*','/']:
+                top = stack.pop()
+                answer += top
+            stack.append(e)
+        else:
+            answer += e
+        
+    while stack:
+        top = stack.pop()
+        if top != '(':
+            answer += top
+    print(answer)
+
 s = sys.stdin.readline().strip()
 solution(s)
