@@ -1,10 +1,12 @@
-# 12018 Yonsei TOTO
+# Week3 Heap 발표자료
+- 12018 Yonsei TOTO
 
 ## [1. 12018 Yonsei TOTO](https://www.acmicpc.net/problem/12018)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44a075b1-63b4-458b-a497-6f6a3e1868e8/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44a075b1-63b4-458b-a497-6f6a3e1868e8/Untitled.png)
+![image](https://user-images.githubusercontent.com/44918665/127265598-4be16e2d-e350-4ca7-988a-f9b864f3c71e.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6fbeebf9-4f6f-46e4-83b3-9f81ebf5d868/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6fbeebf9-4f6f-46e4-83b3-9f81ebf5d868/Untitled.png)
+![image](https://user-images.githubusercontent.com/44918665/127265627-21013864-3f56-4556-be1f-798c1c4d5bb1.png)
+
 
 ### 1.1 자료구조
 
