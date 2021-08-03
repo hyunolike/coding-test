@@ -23,6 +23,44 @@
 7. B막대 원판이 존재한다면, B의 마지막 원판을 c로 이동한 경우, a로 이동한 경우를 q에 저장
 8. C막대 원판이 존재한다면, C의 마지막 원판을 b로 이동한 경우, a로 이동한 경우를 q에 저장
 
+```Python
+from collections import deque
+
+visited = set()
+q = deque()
+
+a = input().split()
+s1 = a[-1] if len(a)>1 else ''
+a = input().split()
+s2 = a[-1] if len(a)>1 else ''
+a = input().split()
+s3 = a[-1] if len(a)>1 else ''
+
+q.append((s1, s2, s3, 0))
+
+while q:
+    a, b, c, count = q.popleft()
+    cont_str = a + '/' + b + '/' + c
+
+    if a=='A'*len(a) and b=='B'*len(b) and c=='C'*len(c):
+        print(count)
+        break
+
+    if cont_str not in visited:
+        visited.add(cont_str)
+
+        if len(a)>0:
+            q.append((a[:-1], b+a[-1], c, count+1))
+            q.append((a[:-1], b, c+a[-1], count+1))
+        if len(b)>0:
+            q.append((a, b[:-1], c+b[-1], count+1))
+            q.append((a+b[-1], b[:-1], c, count+1))
+        if len(c)>0:
+            q.append((a, b+c[-1], c[:-1], count+1))
+            q.append((a+c[-1], b, c[:-1], count+1))
+
+```
+
 ## [13414 수강신청](https://www.acmicpc.net/problem/13414)
 ![image](https://user-images.githubusercontent.com/44918665/128093704-31eaa8da-7c3e-4490-8698-440e04efc7e0.png)
 ![image](https://user-images.githubusercontent.com/44918665/128093726-c7b0f105-54a0-4453-8d95-81ed352b1f1b.png)
@@ -44,6 +82,28 @@
 3. 입력이 끝난 후 딕셔너리를 order에 따라 정렬한다.
 4. 작은 order 순으로 학번을 출력하고, cnt 개수가 수강정원 k에 도달하면 종료한다.
 
+```Python
+import sys
+import operator
+
+k, l = map(int, input().split())
+success = dict()
+order = 1
+
+for _ in range(l):
+    student = sys.stdin.readline().strip()
+    success[student] = order
+    order += 1
+
+success = sorted(success.items(), key = operator.itemgetter(1))
+
+cnt = 0
+for key, value in success:
+    if cnt == k:
+        break
+    print(key)
+    cnt+=1
+```
 
 ## [4195 친구 네트워크](https://www.acmicpc.net/problem/4195)
 
@@ -66,6 +126,45 @@ number (dictionary) : 친구 관계 그래프의 개수를 저장하는 dictiona
 2. x, y의 부모노드를 받아온 뒤 한 부모 노드를 갖도록 합친다.
 3. 합쳐진 부모 노드의 그래프 총 개수를 출력한다.
 
+```Python
+import sys
+
+def getParent(x):
+    if parent[x] == x:
+        return x
+    else:
+        parent[x] = getParent(parent[x])
+        return parent[x]
+
+def unionParent(x, y):
+    a = getParent(x)
+    b = getParent(y)
+    
+    if a != b: 
+        parent[b] = parent[a]
+        number[a] += number[b]
+
+n = int(input())
+
+for _ in range(n):
+    parent = dict()
+    number = dict()
+
+    f = int(input())
+
+    for _ in range(f):
+        x, y = sys.stdin.readline().strip().split()
+
+        if x not in parent:
+            parent[x] = x
+            number[x] = 1
+        if y not in parent:
+            parent[y] = y
+            number[y] = 1
+        
+        unionParent(x, y)
+        print(number[getParent(x)])
+```
 
 
 ## [1302 베스트셀러](https://www.acmicpc.net/problem/1302)
@@ -74,3 +173,21 @@ number (dictionary) : 친구 관계 그래프의 개수를 저장하는 dictiona
 ### 📌풀이 과정
 1. dictionary에 책 이름을 저장하고, 개수를 카운트한다.
 2. dictionary의 values가 최대값인 key를 반환한다.
+
+```Python
+import operator
+
+n = int(input())
+
+best = dict()
+for _ in range(n):
+    book = input()
+    if book in best.keys():
+        best[book] += 1
+    else:
+        best[book] = 1
+    
+result = [k for k,v in best.items() if v == max(best.values())]
+result.sort()
+print(result[0])
+```
