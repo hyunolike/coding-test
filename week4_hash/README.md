@@ -170,7 +170,7 @@ for _ in range(n):
 ## [1302 베스트셀러](https://www.acmicpc.net/problem/1302)
 ![image](https://user-images.githubusercontent.com/44918665/127806860-5ee2083b-4a38-4d5b-9215-dd4c0172e225.png)
 
-### 📌풀이 과정
+### 📌해결과정
 1. dictionary에 책 이름을 저장하고, 개수를 카운트한다.
 2. dictionary의 values가 최대값인 key를 반환한다.
 
