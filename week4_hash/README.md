@@ -1,5 +1,38 @@
 # 문제풀이
 
+## [9375 패션왕 신해빈](https://www.acmicpc.net/problem/9375)
+![image](https://user-images.githubusercontent.com/44918665/128104252-4b750df2-7947-4269-a066-2c06d786e84b.png)
+### 📌문제유형
+- set, map
+
+### 📌자료구조
+- data (dictionary) (key:의상종류, value:의상이름): 의상 종류와 이름을 저장하는 딕셔너리
+
+### 📌해결과정
+1. 옷을 입을 수 있는 모든 경우의 수를 구하되, 알몸인 경우를 제외하는 것이 핵심이다.
+2. 따라서 (의상종류별 개수+1)한 값을 누적해서 곱해나간 뒤 1을 감소시킨다.
+```python
+test = int(input())
+
+for _ in range(test):
+    data = dict()
+    n = int(input())
+    cnt = 1
+
+    for _ in range(n):
+        name, kind = input().split()
+        if kind not in data.keys():
+            name = [name]
+            data[kind] = name
+        else:
+            data[kind].append(name)
+    for k, v in data.items(): 
+        cnt *= len(v)+1
+    
+    print(cnt-1)
+```
+
+
 ## [12906 새로운 하노이 탑](https://www.acmicpc.net/problem/12906)
 ![image](https://user-images.githubusercontent.com/44918665/128094901-3afb562e-3f60-4c8c-919d-e7fa19d1c3e4.png)
 
