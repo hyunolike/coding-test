@@ -58,3 +58,42 @@ while -1*sum(mylect) > m:
     heapq.heappop(mylect)
 print(len(mylect))
 ```
+
+## 2. 1655 가운데를 말해요
+
+### 2.1. 문제유형
+- heap, 우선순위 큐
+![image](https://user-images.githubusercontent.com/44918665/128122117-fcab72f3-eb84-4632-81cf-5dcb4e1b4916.png)
+
+### 2.2. 자료구조
+- left 최대힙의 첫 번째 수가 중간값이 된다.
+1. left (max heap): 최소힙으로 오름차순 저장
+2. right (min heap): 최대값으로 내림차순 저장
+### 2.3. 해결과정
+1. left의 최대힙의 루트가 중간값이 되도록 left, right에 값을 나눠 담는다.
+2. 길이가 같은 경우 left에 우선적으로 담고, 다른 경우 right에 담는다.
+3. left의 루트(최대값)가 right의 루트(최소값)보다 클 경우 꺼내서 위치를 바꿔담는다.
+4. 결과적으로 left heap에는 중간값부터 가장 작은값까지 내림차순으로 값이 저장된다.
+
+```python
+import sys
+import heapq
+
+n = int(input())
+data = list(int(sys.stdin.readline().strip()) for _ in range(n))
+left = []
+right = []
+
+for num in data:
+    if len(left) == len(right):
+        heapq.heappush(left, (-num, num))
+    else:
+        heapq.heappush(right, (num, num))
+    
+    if left and right and left[0][1] > right[0][1]:
+        l = heapq.heappop(left)[1]
+        r = heapq.heappop(right)[1]
+        heapq.heappush(left, (-r, r))
+        heapq.heappush(right, (l, l))
+    print(left[0][1])
+```
