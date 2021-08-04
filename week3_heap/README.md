@@ -69,6 +69,10 @@ print(len(mylect))
 - left 최대힙의 첫 번째 수가 중간값이 된다.
 1. left (max heap): 최소힙으로 오름차순 저장
 2. right (min heap): 최대값으로 내림차순 저장
+
+- 처음에 하나의 heap에 넣고 index로 중간값을 접근하는 실수를 범했다.
+- heap의 경우 트리형태로 저장되기 때문에 len(heap)//2 or len(heap)//2-1로 인덱싱하는 순서와 heap에서 꺼내는 순서가 다르다.
+- 따라서 max heap인 left, min heap인 right 2개의 자료구조가 필요하다.
 ### 2.3. 해결과정
 1. left의 최대힙의 루트가 중간값이 되도록 left, right에 값을 나눠 담는다.
 2. 길이가 같은 경우 left에 우선적으로 담고, 다른 경우 right에 담는다.
