@@ -6,12 +6,12 @@ for _ in range(test):
     cnt = 1
 
     for _ in range(n):
-        a, b = input().split()
-        if b not in data.keys():
-            a = [a]
-            data[b] = a
+        name, kind = input().split()
+        if kind not in data.keys():
+            name = [name]
+            data[kind] = name
         else:
-            data[b].append(a)
+            data[kind].append(name)
     for k, v in data.items(): 
         cnt *= len(v)+1
     
