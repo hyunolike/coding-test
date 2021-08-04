@@ -1,6 +1,3 @@
-# Week3 Heap 발표자료
-- 12018 Yonsei TOTO
-
 ## [1. 12018 Yonsei TOTO](https://www.acmicpc.net/problem/12018)
 
 ![image](https://user-images.githubusercontent.com/44918665/127265598-4be16e2d-e350-4ca7-988a-f9b864f3c71e.png)
@@ -15,7 +12,7 @@
 
 → mylect가 max heap인 경우 : 마일리지를 초과할 경우 큰 마일리지가 소모되는 강의를 우선적으로 제거하기 위함
 
-### 1.2 풀이 과정
+### 1.2 해결과정
 
 1. 신청인원(P)과 수강인원(L) 차이를 구해 마일리지와 함께 heap에 저장한다.
 
@@ -59,7 +56,7 @@ while -1*sum(mylect) > m:
 print(len(mylect))
 ```
 
-## 2. 1655 가운데를 말해요
+## 2. [1655 가운데를 말해요](https://www.acmicpc.net/problem/1655)
 
 ### 2.1. 문제유형
 - heap, 우선순위 큐
