@@ -24,6 +24,34 @@
 8. 최종 cnt가 m보다 작거나 같다면, 블루레이 크기가 큰 것이므로 answer에 중간값 저장 후 right = mid-1
 9. 최종 answer를 출력한다.
 
+```python
+n, m = map(int, input().split())
+lesson = list(map(int, input().split()))
+left, right = max(lesson), sum(lesson)
+answer = left
+
+while left <= right:
+    cnt = 0
+    file = 0
+    mid = (left + right)//2
+
+    for l in lesson:  
+        if file+l > mid:
+            cnt += 1
+            file = l
+        else:
+            file += l
+    if file:
+        cnt+=1
+    
+    if cnt>m:
+        left = mid+1
+    else:
+        answer = mid
+        right = mid-1
+print(answer)
+```
+
 ## 2. [2110 공유기 설치](https://www.acmicpc.net/problem/2110)
 ![image](https://user-images.githubusercontent.com/44918665/128295606-440b3701-3008-47eb-9208-af5bbb95b3dc.png)
 ### 2.1. 문제유형
@@ -44,3 +72,31 @@
 5. 반복문 종료 후, 공유기 개수가 c보다 작다면 최대거리가 긴 것이므로 right = mid - 1
 6. 공유기 개수가 c보다 크다면 최대거리가 짧은 것이므로 answer에 최대거리 저장 후 left = mid + 1
 7. answer를 출력한다.
+```python
+import sys
+
+n,c = map(int, input().split())
+house = list(int(sys.stdin.readline()) for _ in range(n))
+house.sort()
+
+left = 1
+right = house[-1]-house[0]
+answer = 0
+
+while left <= right:
+    mid = (left+right)//2
+    cnt = 1
+    wifi = house[0]
+
+    for i in range(1, n):
+        if house[i] >= wifi + mid:
+            cnt += 1
+            wifi = house[i]
+    
+    if cnt < c:
+        right = mid - 1
+    else:
+        left = mid + 1
+        answer = mid
+print(answer)
+```
