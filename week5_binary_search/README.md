@@ -100,3 +100,40 @@ while left <= right:
         answer = mid
 print(answer)
 ```
+
+## 3. [1072 게임](https://www.acmicpc.net/problem/1072)
+![image](https://user-images.githubusercontent.com/44918665/128458629-e7473b16-6ef6-4120-ab90-fbcca66a5f03.png)
+
+### 3.1. 문제유형
+- Binary Search
+### 3.2. 자료구조
+1. 중요한 점은 y/x * 100과 같이 실수형으로 계산 후 int로 바꿔줄 시 정확하지 않을 수 있다.
+2. 따라서 실수형 계산이 아닌, y * 100//x처럼 정수형 계산으로 바꿔 승률을 계산해야 한다.
+- z (int): 초기 승리한 게임 수 y/전체 게임 수 x * 100
+- target (int): 승리한 경기수를 이분탐색하며 계산한 승률
+- left (int): 더해나갈 승리한 횟수의 최소값
+- right (int): 더해나갈 승리한 횟수의 최대값
+- mid (int): (left+right)//2 == 중간값으로 실제 더할 승리한 횟수
+### 3.3. 해결과정
+1. 승리한 게임 수를 찾는 게 핵심이며, 범위는 0부터 x(10 ** 9)까지이다.
+2. 따라서 1부터 적용할 경우 10억 번 연산이 필요하므로 이분탐색을 사용한다.
+3. x,y에 mid를 더한 후 승률을 계산한다.
+4. 승률이 초기 승률값과 같다면 left = mid+1
+5. 승률이 초기 승률값보다 크다면 answer=mid 후 right = mid-1
+6. 3-5를 left <= right일 동안 반복한다.
+7. 반복이 끝난 후 승률이 초기값과 같다면 -1을, 아니라면 answer를 출력한다.
+## 4. [1300 K번째 수](https://www.acmicpc.net/problem/1300)
+![image](https://user-images.githubusercontent.com/44918665/128458651-bc87c60f-b462-4537-a8a7-1e8a33ed2acb.png)
+### 4.1. 문제유형
+- Binary Search
+### 4.2. 자료구조
+- left (int): 각 행의 최소값 인덱스 == 1
+- right (int): 각 행의 최대값 인덱스 == n
+- mid (int): (left+right)//2 == 중간값으로 탐색해 나갈 값
+### 4.3. 해결과정
+- 핵심 아이디어는 행별로 mid값보다 작은 값의 개수를 세는 것이다.
+- 각 행의 값은 i의 배수이며 작은 값들의 개수는 최대 n, 최소 mid // i이다.
+1. left <= right 동안 mid를 계산 후 n행에 대해 mid보다 작은 개수를 구한다.
+2. mid보다 작은 개수가 k와 같거나 크면 answer = mid 후 right = mid - 1 (더 작은 좌측탐색)
+3. mid보다 작은 개수가 k보다 클 경우 left = mid + 1 (더 큰 우측탐색)
+4. 반복문 종료후 answer를 출력한다.
