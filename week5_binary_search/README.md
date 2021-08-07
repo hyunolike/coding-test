@@ -122,6 +122,31 @@ print(answer)
 5. 승률이 초기 승률값보다 크다면 answer=mid 후 right = mid-1
 6. 3-5를 left <= right일 동안 반복한다.
 7. 반복이 끝난 후 승률이 초기값과 같다면 -1을, 아니라면 answer를 출력한다.
+```python
+x, y = map(int, input().split())
+left, right = 0, x
+answer = 0
+z = y*100//x
+
+while left<=right:
+    mid = (left+right)//2
+    game = x + mid
+    win = y + mid
+    target = win*100//game
+
+    if z == target:
+        left = mid + 1
+    else:
+        answer = mid
+        right = mid - 1
+
+x, y = x+answer, y+answer
+result = y*100//x
+if result == z:
+    print(-1)
+else: 
+    print(answer)
+```
 ## 4. [1300 K번째 수](https://www.acmicpc.net/problem/1300)
 ![image](https://user-images.githubusercontent.com/44918665/128458651-bc87c60f-b462-4537-a8a7-1e8a33ed2acb.png)
 ### 4.1. 문제유형
@@ -137,3 +162,22 @@ print(answer)
 2. mid보다 작은 개수가 k와 같거나 크면 answer = mid 후 right = mid - 1 (더 작은 좌측탐색)
 3. mid보다 작은 개수가 k보다 클 경우 left = mid + 1 (더 큰 우측탐색)
 4. 반복문 종료후 answer를 출력한다.
+```python
+n = int(input())
+k = int(input())
+cnt, answer = 0, 0
+left, right = 1, k
+
+while left <= right:
+    mid = (left + right)//2
+    cnt = 0
+    for i in range(1, n+1):
+        cnt += min(mid // i, n)
+    if cnt >= k:
+        answer = mid
+        right = mid - 1
+    else:
+        left = mid + 1
+print(answer)
+
+```
