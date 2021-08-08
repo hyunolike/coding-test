@@ -206,3 +206,70 @@ while left <= right:
 print(answer)
 
 ```
+
+## 5. [2805 나무 자르기](https://www.acmicpc.net/problem/2805)
+![image](https://user-images.githubusercontent.com/44918665/128623621-b0a3e464-f9c5-4d99-b20c-fac48eac98f1.png)
+
+
+### 5.1. 문제유형
+- Binary Search
+
+### 5.2. 자료구조
+- left (int): 가장 작은 트리의 높이
+- right (int): 가장 높은 트리의 높이
+- mid (int): 트리의 중간 높이
+
+### 5.3. 해결과정
+- ⭐ **실수한 점) 트리의 높이가 최대여야 나무를 가장 적게 가져간다.**
+- 따라서, 자른 나무 길이가 M보다 작을 경우 right의 크기를 감소시킨다.
+- 반대로 자른 나무 길이가 M보다 클 경우, left 크기를 증가시켜 나무를 절약한다.
+- ⭐ **list(tree-mid for tree in trees if tree-mid>0)으로 계산한 뒤, sum 계산 시 시간 초과가 발생했다.**
+- 따라서 바로 sum(tree-mid for tree in trees if tree-mid>0)으로 계산해주니 바로 통과했다.
+
+1. left, right로부터 mid를 계산 후 자른 나무 길이를 계산한다.
+2. 자른 나무 길이가 m보다 작으면 right = mid-1로 높이를 낮춘다.
+3. 자른 나무 길이가 m보다 크면 left = mid+1로 높이를 높이고 answer = mid를 저장한다.
+
+```python
+n, m = map(int, input().split())
+trees = list(map(int, input().split()))
+
+left, right = 1, max(trees)
+answer = 0
+
+while left <= right:
+    mid = (left+right)//2
+    cuts = sum(tree-mid for tree in trees if tree-mid>0)
+
+    if cuts < m:
+        right = mid-1
+    else:
+        left = mid+1
+        answer = mid
+
+print(answer)
+```
+
+## 6. [2470 두 용액](https://www.acmicpc.net/problem/2470)
+![image](https://user-images.githubusercontent.com/44918665/128623641-01916bb6-d509-4331-a54e-c49691b9644d.png)
+
+
+### 6.1. 문제유형
+- Binary Search
+- Two Pointer
+
+### 6.2. 자료구조
+- l (int): 첫 번째 원소 인덱스
+- r (int): 마지막 원소 인덱스
+- flag (boolean): 탐색 여부를 결정하는 변수
+
+### 6.3. 해결과정
+- 시작하기 전, 정렬을 수행한다.
+1. 만약 첫 번째 값과 마지막 값이 모두 양수라면, 가장 작은 두 값을 출력한다.
+2. 만약 첫 번째 값과 마지막 값이 모두 음수라면, 가장 큰 두 값을 출력한다.
+3. 만약 첫 번째 값과 마지막 값의 부호가 다르다면, 탐색을 수행한다.
+4. 탐색과정은 flag and l < r동안 반복한다.
+5. sum의 절대값이 answer 값보다 작다면 answer에 sum을 저장하고, a,b = l,r를 저장한다.
+6. sum이 0보다 작다면 용해값을 키우기 위해 왼쪽값을 증가시킨다.
+7. sum이 0보다 크다면 용해값을 감소시키기 위해 오른쪽값을 감소시킨다.
+
