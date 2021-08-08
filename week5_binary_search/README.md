@@ -1,14 +1,20 @@
 # 문제풀이
 ## 1. [2343 기타 레슨](https://www.acmicpc.net/problem/2343)
 ![image](https://user-images.githubusercontent.com/44918665/128294339-b305744a-e92d-4e5d-b229-71afe96410c3.png)
+
+
 ### 1.1. 문제유형
 - Binary Search
+
+
 ### 1.2. 자료구조
 - cnt (int) : 블루레이 개수
 - file (int) : 레슨을 저장한 파일 크기
 - mid (int) : 블루레이 크기
 - left (int) : 가장 작은 블루레이 크기
 - right (int) : 가장 큰 블루레이 크기
+
+
 ### 1.3. 해결과정
 - 가장 작은 블루레이 크기는 max(lesson), 최대 크기는 sum(lesson)이다.
 - 주어진 m개의 블루레이에 강의를 저장하되, 블루레이 크기는 작을수록 좋다.
@@ -54,14 +60,19 @@ print(answer)
 
 ## 2. [2110 공유기 설치](https://www.acmicpc.net/problem/2110)
 ![image](https://user-images.githubusercontent.com/44918665/128295606-440b3701-3008-47eb-9208-af5bbb95b3dc.png)
+
 ### 2.1. 문제유형
 - Binary Search
+
+
 ### 2.2. 자료구조
 - cnt (int): 공유기 개수
 - left (int): 최소 거리 == 1
 - right (int): 최대 거리 == (마지막 집 좌표 - 첫 번째 집 좌표)
 - mid (int): 공유기 간 거리 == (left + right) // 2
 - wifi (int): 공유기가 설치된 집 좌표
+
+
 ### 2.3. 해결과정
 - 집 좌표 최대 크기가 10억이므로, 순차탐색이 아닌 이분탐색을 떠올려볼 것
 - 공유기 간 최대거리를 찾는 것이 목적이므로 이분탐색 활용할 것
@@ -72,6 +83,8 @@ print(answer)
 5. 반복문 종료 후, 공유기 개수가 c보다 작다면 최대거리가 긴 것이므로 right = mid - 1
 6. 공유기 개수가 c보다 크다면 최대거리가 짧은 것이므로 answer에 최대거리 저장 후 left = mid + 1
 7. answer를 출력한다.
+
+
 ```python
 import sys
 
@@ -106,6 +119,7 @@ print(answer)
 
 ### 3.1. 문제유형
 - Binary Search
+
 ### 3.2. 자료구조
 1. 중요한 점은 y/x * 100과 같이 실수형으로 계산 후 int로 바꿔줄 시 정확하지 않을 수 있다.
 2. 따라서 실수형 계산이 아닌, y * 100//x처럼 정수형 계산으로 바꿔 승률을 계산해야 한다.
@@ -114,6 +128,7 @@ print(answer)
 - left (int): 더해나갈 승리한 횟수의 최소값
 - right (int): 더해나갈 승리한 횟수의 최대값
 - mid (int): (left+right)//2 == 중간값으로 실제 더할 승리한 횟수
+
 ### 3.3. 해결과정
 1. 승리한 게임 수를 찾는 게 핵심이며, 범위는 0부터 x(10 ** 9)까지이다.
 2. 따라서 1부터 적용할 경우 10억 번 연산이 필요하므로 이분탐색을 사용한다.
@@ -122,14 +137,47 @@ print(answer)
 5. 승률이 초기 승률값보다 크다면 answer=mid 후 right = mid-1
 6. 3-5를 left <= right일 동안 반복한다.
 7. 반복이 끝난 후 승률이 초기값과 같다면 -1을, 아니라면 answer를 출력한다.
+
+```python
+x, y = map(int, input().split())
+left, right = 0, x
+answer = 0
+z = y*100//x
+
+while left<=right:
+    mid = (left+right)//2
+    game = x + mid
+    win = y + mid
+    target = win*100//game
+
+    if z == target:
+        left = mid + 1
+    else:
+        answer = mid
+        right = mid - 1
+
+x, y = x+answer, y+answer
+result = y*100//x
+if result == z:
+    print(-1)
+else: 
+    print(answer)
+```
+
 ## 4. [1300 K번째 수](https://www.acmicpc.net/problem/1300)
 ![image](https://user-images.githubusercontent.com/44918665/128458651-bc87c60f-b462-4537-a8a7-1e8a33ed2acb.png)
+
+
 ### 4.1. 문제유형
 - Binary Search
+
+
 ### 4.2. 자료구조
 - left (int): 각 행의 최소값 인덱스 == 1
 - right (int): 각 행의 최대값 인덱스 == n
 - mid (int): (left+right)//2 == 중간값으로 탐색해 나갈 값
+
+
 ### 4.3. 해결과정
 - 핵심 아이디어는 행별로 mid값보다 작은 값의 개수를 세는 것이다.
 - 각 행의 값은 i의 배수이며 작은 값들의 개수는 최대 n, 최소 mid // i이다.
@@ -137,3 +185,121 @@ print(answer)
 2. mid보다 작은 개수가 k와 같거나 크면 answer = mid 후 right = mid - 1 (더 작은 좌측탐색)
 3. mid보다 작은 개수가 k보다 클 경우 left = mid + 1 (더 큰 우측탐색)
 4. 반복문 종료후 answer를 출력한다.
+
+
+```python
+n = int(input())
+k = int(input())
+cnt, answer = 0, 0
+left, right = 1, k
+
+while left <= right:
+    mid = (left + right)//2
+    cnt = 0
+    for i in range(1, n+1):
+        cnt += min(mid // i, n)
+    if cnt >= k:
+        answer = mid
+        right = mid - 1
+    else:
+        left = mid + 1
+print(answer)
+
+```
+
+## 5. [2805 나무 자르기](https://www.acmicpc.net/problem/2805)
+![image](https://user-images.githubusercontent.com/44918665/128623621-b0a3e464-f9c5-4d99-b20c-fac48eac98f1.png)
+
+
+### 5.1. 문제유형
+- Binary Search
+
+### 5.2. 자료구조
+- left (int): 가장 작은 트리의 높이
+- right (int): 가장 높은 트리의 높이
+- mid (int): 트리의 중간 높이
+
+### 5.3. 해결과정
+- ⭐ **실수한 점) 트리의 높이가 최대여야 나무를 가장 적게 가져간다.**
+- 따라서, 자른 나무 길이가 M보다 작을 경우 right의 크기를 감소시킨다.
+- 반대로 자른 나무 길이가 M보다 클 경우, left 크기를 증가시켜 나무를 절약한다.
+- ⭐ **list(tree-mid for tree in trees if tree-mid>0)으로 계산한 뒤, sum 계산 시 시간 초과가 발생했다.**
+- 따라서 바로 sum(tree-mid for tree in trees if tree-mid>0)으로 계산해주니 바로 통과했다.
+
+1. left, right로부터 mid를 계산 후 자른 나무 길이를 계산한다.
+2. 자른 나무 길이가 m보다 작으면 right = mid-1로 높이를 낮춘다.
+3. 자른 나무 길이가 m보다 크면 left = mid+1로 높이를 높이고 answer = mid를 저장한다.
+
+```python
+n, m = map(int, input().split())
+trees = list(map(int, input().split()))
+
+left, right = 1, max(trees)
+answer = 0
+
+while left <= right:
+    mid = (left+right)//2
+    cuts = sum(tree-mid for tree in trees if tree-mid>0)
+
+    if cuts < m:
+        right = mid-1
+    else:
+        left = mid+1
+        answer = mid
+
+print(answer)
+```
+
+## 6. [2470 두 용액](https://www.acmicpc.net/problem/2470)
+![image](https://user-images.githubusercontent.com/44918665/128623641-01916bb6-d509-4331-a54e-c49691b9644d.png)
+
+
+### 6.1. 문제유형
+- Binary Search
+- Two Pointer
+
+### 6.2. 자료구조
+- l (int): 첫 번째 원소 인덱스
+- r (int): 마지막 원소 인덱스
+- flag (boolean): 탐색 여부를 결정하는 변수
+
+### 6.3. 해결과정
+- 시작하기 전, 정렬을 수행한다.
+1. 만약 첫 번째 값과 마지막 값이 모두 양수라면, 가장 작은 두 값을 출력한다.
+2. 만약 첫 번째 값과 마지막 값이 모두 음수라면, 가장 큰 두 값을 출력한다.
+3. 만약 첫 번째 값과 마지막 값의 부호가 다르다면, 탐색을 수행한다.
+4. 탐색과정은 flag and l < r동안 반복한다.
+5. sum의 절대값이 answer 값보다 작다면 answer에 sum을 저장하고, a,b = l,r를 저장한다.
+6. sum이 0보다 작다면 용해값을 키우기 위해 왼쪽값을 증가시킨다.
+7. sum이 0보다 크다면 용해값을 감소시키기 위해 오른쪽값을 감소시킨다.
+
+```python
+n = int(input())
+liq = list(map(int, input().split()))
+liq.sort()
+l, r = 0, n-1
+flag = False
+a, b, answer = 0, 0, 1000000001
+
+if liq[l]<0 and liq[r]<0:
+    print(liq[-2], liq[-1])
+    exit()
+elif liq[l]>0 and liq[r] >0:
+    print(liq[0], liq[1])
+    exit()
+else:
+    flag=True
+
+while flag and l<r:    
+    sum = liq[l]+liq[r]
+    if abs(sum) < answer:
+        answer = abs(sum)
+        a = l
+        b = r
+    if sum < 0:
+        l += 1
+    else:
+        r -= 1
+    
+print(liq[a], liq[b])
+```
