@@ -303,3 +303,95 @@ while flag and l<r:
     
 print(liq[a], liq[b])
 ```
+
+## 7. [12015 가장 긴 증가하는 부분 수열2](https://www.acmicpc.net/problem/12015)
+![image](https://user-images.githubusercontent.com/44918665/128661023-e4d6b00d-be07-4c6f-a30d-4c9cb176da21.png)
+
+
+### 7.1. 문제유형
+- Binary Search, DP
+
+### 7.2. 자료구조
+- lis (list): 최장 부분 순열을 저장하는 리스트
+- a (int): n개의 입력값을 저장하는 리스트
+
+### 7.3. 해결과정
+1. 입력받은 값을 a에서 하나씩 꺼낸다.
+2. lis가 비어 있으면 꺼낸 값을 추가한다.
+3. 비어있지 않고, lis[-1] < num이면 꺼낸 값을 추가한다.
+4. 꺼낸 값이 lis의 마지막 값보다 작으면 이분탐색으로 들어갈 index를 찾고 덮어씌운다.
+5. 반복이 끝나면 lis의 길이를 출력한다.
+
+```python
+import sys
+from bisect import bisect_left
+input = sys.stdin.readline
+
+n = int(input())
+a = list(map(int, input().split()))
+lis = []
+
+for num in a:
+    if not lis:
+        lis.append(num)
+        continue
+    if lis[-1] < num:
+        lis.append(num)    
+    else:
+        index = bisect_left(lis, num)
+        lis[index] = num
+print(len(lis))
+```
+
+## 8. [17393 다이나믹 롤러](https://www.acmicpc.net/problem/17393)
+![image](https://user-images.githubusercontent.com/44918665/128661428-d281a5cf-1d6e-4ab8-bdfb-cefc6242d47a.png)
+
+
+### 8.1. 문제유형
+- Binary Search
+
+### 8.2. 자료구조
+- ink (list): 잉크를 저장하는 리스트
+- vis (list): 점도를 저장하는 리스트
+- answer (list): 각 자리에서 최대 칠할 수 있는 타일 수를 저장하는 리스트
+- pos (int): 현재 타일 위치의 잉크값
+- l (int): 현재 위치의 바로 앞 타일 위치를 저장
+- r (int): 타일의 가장 끝 위치를 저장
+- mid (int): l,r의 중간값
+- res (int): 현재 위치에서 칠할 수 있는 최대 타일 위치
+
+### 8.3. 해결과정
+- 아이디어는 현재 위치 ink값보다 작은값들 중 최대값의 위치를 찾는다.
+- 현재 위치 + 1 부터 ink값보다 작은 최대값 위치까지의 값을 카운트한다.
+- 이 거리가 현재 위치에서부터 칠할 수 있는 타일 수가 된다.
+
+1. i=0부터 n-1까지 반복문을 돌며 각 자리에서 칠할 수 있는 타일 수를 카운트한다.
+2. 현재 위치 i를 기준으로 l,r을 정의한 후 l <= r일 동알 반복문을 돌며 타일 수를 카운트한다.
+3. 현재 잉크값보다 mid의 점도가 크다면 칠할 수 없다. r = mid-1
+4. 현재 잉크값보다 mid의 점도가 작거나 같다면 칠할 수 있다. l = mid+1, res = mid 저장
+5. 반복문이 끝난 후, i+1부터 res까지의 타일 수를 count한다. = res - (i+1) + 1
+6. 각 위치별 칠할 수 있는 타일 개수를 출력한다.
+
+```python
+import sys
+
+n = int(input())
+ink = list(map(int, sys.stdin.readline().split()))
+vis = list(map(int, sys.stdin.readline().split()))
+answer = []
+
+for i in range(n):
+    pos = ink[i]
+    l, r = i+1, n-1
+    res = i
+
+    while l <= r:
+        mid = (l+r)//2
+        if pos < vis[mid]:
+            r = mid-1
+        else:
+            l = mid+1
+            res = mid
+    answer.append(str(res-(i+1)+1))
+print(' '.join(answer))
+```

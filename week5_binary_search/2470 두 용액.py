@@ -20,7 +20,6 @@ while flag and l<r:
         answer = abs(sum)
         a = l
         b = r
-
     if sum < 0:
         l += 1
     else:
