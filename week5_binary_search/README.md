@@ -408,3 +408,46 @@ for i in range(n):
     answer.append(str(res-(i+1)+1))
 print(' '.join(answer))
 ```
+
+## 9. [1654 랜선 자르기](https://www.acmicpc.net/problem/1654)
+![image](https://user-images.githubusercontent.com/44918665/128784348-76ab94cc-4dce-4c12-a261-b3326befd825.png)
+
+### 9.1. 문제유형
+- 이분탐색, Binary Search
+
+### 9.2. 자료구조
+- lans (list): 보유한 랜선의 길이를 저장하는 리스트
+- left, right (int): 랜선 최소길이, 최대길이
+- mid (int): 지정한 랜선 길이. left, right의 중간값
+- cnt (int): 잘라서 얻어낸 랜선 개수
+
+### 9.3. 해결과정
+- 최대 랜선 길이가 2^31-1이므로 이분탐색을 떠올렸다.
+- 항상 n개의 랜선 개수를 만들 수 있으므로, 랜선 길이를 지정 후 n개가 되는지 테스트한다.
+- 최대 범위가 2^31-1인 것을 깜빡해서 1차시도 때 오답으로 책정되었다.
+1. left, right를 지정하되 right의 범위는 2^31-1을 포함하도록 설정한다.
+2. mid 계산 후 cnt가 n을 만족하는 지 확인한다.
+3. cnt가 n보다 작을 경우 너무 크게 잘랐으므로, right = mid-1
+4. cnt가 n보다 크거나 작을 경우 너무 작게 잘랐으므로, answer=mid 저장 후 left = mid+1
+
+```python
+import sys
+
+k, n = map(int, sys.stdin.readline().split())
+lans = list(int(sys.stdin.readline()) for _ in range(k))
+left, right, answer = 1, 21470000000, 0
+
+while left <= right:
+    mid = (left+right)//2
+    cnt = 0
+
+    for l in lans:
+        cnt += l//mid
+    
+    if cnt < n: # 너무 크게 자름
+        right = mid-1
+    else: # 너무 작게 자름
+        left = mid+1
+        answer = mid
+print(answer)
+```
