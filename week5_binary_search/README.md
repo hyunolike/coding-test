@@ -408,3 +408,96 @@ for i in range(n):
     answer.append(str(res-(i+1)+1))
 print(' '.join(answer))
 ```
+
+## 9. [1654 랜선 자르기](https://www.acmicpc.net/problem/1654)
+![image](https://user-images.githubusercontent.com/44918665/128784348-76ab94cc-4dce-4c12-a261-b3326befd825.png)
+
+### 9.1. 문제유형
+- 이분탐색, Binary Search
+
+### 9.2. 자료구조
+- lans (list): 보유한 랜선의 길이를 저장하는 리스트
+- left, right (int): 랜선 최소길이, 최대길이
+- mid (int): 지정한 랜선 길이. left, right의 중간값
+- cnt (int): 잘라서 얻어낸 랜선 개수
+
+### 9.3. 해결과정
+- 최대 랜선 길이가 2^31-1이므로 이분탐색을 떠올렸다.
+- 항상 n개의 랜선 개수를 만들 수 있으므로, 랜선 길이를 지정 후 n개가 되는지 테스트한다.
+- 최대 범위가 2^31-1인 것을 깜빡해서 1차시도 때 오답으로 책정되었다.
+1. left, right를 지정하되 right의 범위는 2^31-1을 포함하도록 설정한다.
+2. mid 계산 후 cnt가 n을 만족하는 지 확인한다.
+3. cnt가 n보다 작을 경우 너무 크게 잘랐으므로, right = mid-1
+4. cnt가 n보다 크거나 작을 경우 너무 작게 잘랐으므로, answer=mid 저장 후 left = mid+1
+
+```python
+import sys
+
+k, n = map(int, sys.stdin.readline().split())
+lans = list(int(sys.stdin.readline()) for _ in range(k))
+left, right, answer = 1, 21470000000, 0
+
+while left <= right:
+    mid = (left+right)//2
+    cnt = 0
+
+    for l in lans:
+        cnt += l//mid
+    
+    if cnt < n: # 너무 크게 자름
+        right = mid-1
+    else: # 너무 작게 자름
+        left = mid+1
+        answer = mid
+print(answer)
+```
+
+## 10. [1477 휴게소 세우기](https://www.acmicpc.net/problem/1477)
+![image](https://user-images.githubusercontent.com/44918665/128801763-cafd179b-7360-4a9d-b4e1-92fad6aec864.png)
+
+### 10.1. 문제유형
+- 이분탐색
+
+### 10.2. 자료구조
+- distance (int): 도로 최대 길이
+- conv (list): 휴게소 위치를 담은 리스트
+- left, right (int): 휴게소가 없는 최대거리의 최소값(1), 최대값(distance-1)
+- mid (int): 지정한 최대거리의 최소값. left, right의 중간값
+- current (int): 현재 위치를 저장할 변수
+- diff (int): 현재 위치 - 다음 휴게소 위치로 휴게소가 없는 거리
+- cnt (int): 설치한 휴게소 개수
+
+### 10.3. 해결과정
+- ⭐ 놓친점) diff가 mid와 같은 경우 휴게소를 설치하지 않아야 한다. (따라서 diff-1을 mid로 나눈다.)
+- ⭐ 아이디어) 휴게소가 없는 최대거리의 최소값을 지정하고, 휴게소를 설치를 완료한 뒤 m개인지 비교한다.
+1. left, right로부터 mid를 계산 후, 설치할 휴게소 수를 구한다.
+2. 반복문을 돌며 diff > current인 경우 휴게소를 설치한다.
+3. 이 때 휴게소 수는 (diff-1)//mid 이다. (diff보다 작을 경우 설치 X, 큰 경우 필요한만큼 설치)
+4. 휴게소 설치 개수가 m보다 크면, 너무 많이 설치했으므로 간격을 줄인다. right = mid-1
+5. 휴게소 설치 개수가 m보다 작거나 같으면, 너무 적게 설치했으므로 간격을 늘린다. left = mid+1
+
+```python
+n, m, distance = map(int, input().split())
+conv = list(map(int, input().split()))
+conv.append(distance)
+conv.sort()
+
+left, right = 1, distance-1
+answer = 0
+
+while left<=right:
+    mid = (left+right)//2
+    current, cnt = 0, 0
+
+    for position in conv:
+        diff = position - current
+        current = position
+        if diff > mid: # 최대 거리보다 크므로 지어야함
+            cnt += (diff-1)//mid
+    if cnt > m: # m보다 많이 지음. 너무 가까이 지음
+        left = mid+1
+    else: # m보다 작거나 같게 지음. 너무 멀리 지음
+        right = mid-1
+        answer = mid 
+print(answer)
+```
