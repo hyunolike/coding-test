@@ -451,3 +451,53 @@ while left <= right:
         answer = mid
 print(answer)
 ```
+
+## 10. [1477 휴게소 세우기](https://www.acmicpc.net/problem/1477)
+![image](https://user-images.githubusercontent.com/44918665/128801763-cafd179b-7360-4a9d-b4e1-92fad6aec864.png)
+
+### 10.1. 문제유형
+- 이분탐색
+
+### 10.2. 자료구조
+- distance (int): 도로 최대 길이
+- conv (list): 휴게소 위치를 담은 리스트
+- left, right (int): 휴게소가 없는 최대거리의 최소값(1), 최대값(distance-1)
+- mid (int): 지정한 최대거리의 최소값. left, right의 중간값
+- current (int): 현재 위치를 저장할 변수
+- diff (int): 현재 위치 - 다음 휴게소 위치로 휴게소가 없는 거리
+- cnt (int): 설치한 휴게소 개수
+
+### 10.3. 해결과정
+- ⭐ 놓친점) diff가 mid와 같은 경우 휴게소를 설치하지 않아야 한다. (따라서 diff-1을 mid로 나눈다.)
+- ⭐ 아이디어) 휴게소가 없는 최대거리의 최소값을 지정하고, 휴게소를 설치를 완료한 뒤 m개인지 비교한다.
+1. left, right로부터 mid를 계산 후, 설치할 휴게소 수를 구한다.
+2. 반복문을 돌며 diff > current인 경우 휴게소를 설치한다.
+3. 이 때 휴게소 수는 (diff-1)//mid 이다. (diff보다 작을 경우 설치 X, 큰 경우 필요한만큼 설치)
+4. 휴게소 설치 개수가 m보다 크면, 너무 많이 설치했으므로 간격을 줄인다. right = mid-1
+5. 휴게소 설치 개수가 m보다 작거나 같으면, 너무 적게 설치했으므로 간격을 늘린다. left = mid+1
+
+```python
+n, m, distance = map(int, input().split())
+conv = list(map(int, input().split()))
+conv.append(distance)
+conv.sort()
+
+left, right = 1, distance-1
+answer = 0
+
+while left<=right:
+    mid = (left+right)//2
+    current, cnt = 0, 0
+
+    for position in conv:
+        diff = position - current
+        current = position
+        if diff > mid: # 최대 거리보다 크므로 지어야함
+            cnt += (diff-1)//mid
+    if cnt > m: # m보다 많이 지음. 너무 가까이 지음
+        left = mid+1
+    else: # m보다 작거나 같게 지음. 너무 멀리 지음
+        right = mid-1
+        answer = mid 
+print(answer)
+```
