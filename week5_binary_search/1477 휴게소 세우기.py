@@ -3,7 +3,7 @@ conv = list(map(int, input().split()))
 conv.append(distance)
 conv.sort()
 
-left, right = 0, distance-1
+left, right = 1, distance-1
 answer = 0
 
 while left<=right:
