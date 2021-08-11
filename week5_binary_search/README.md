@@ -10,7 +10,7 @@
 9. [1654 랜선 자르기](#9-1654-랜선-자르기)
 10. [1477 휴게소 세우기](#10-1477-휴게소-세우기)
 11. [8983 사냥꾼](#11-8983-사냥꾼)
-12. [11977 Angry cows](#12-11977-Angry-cows)
+12. [11977 Angry Cows](#12-11977-Angry-Cows)
 
 ## 1. [2343 기타레슨](https://www.acmicpc.net/problem/2343)
 ![image](https://user-images.githubusercontent.com/44918665/128294339-b305744a-e92d-4e5d-b229-71afe96410c3.png)
@@ -42,6 +42,8 @@
 7. 최종 cnt가 m보다 크다면, 블루레이 크기가 작은 것이므로 left = mid+1
 8. 최종 cnt가 m보다 작거나 같다면, 블루레이 크기가 큰 것이므로 answer에 중간값 저장 후 right = mid-1
 9. 최종 answer를 출력한다.
+
+### 1.4. 소스코드
 
 ```python
 n, m = map(int, input().split())
@@ -98,6 +100,8 @@ print(answer)
 7. answer를 출력한다.
 
 
+### 2.4. 소스코드
+
 ```python
 import sys
 
@@ -151,6 +155,9 @@ print(answer)
 6. 3-5를 left <= right일 동안 반복한다.
 7. 반복이 끝난 후 승률이 초기값과 같다면 -1을, 아니라면 answer를 출력한다.
 
+
+### 3.4. 소스코드
+
 ```python
 x, y = map(int, input().split())
 left, right = 0, x
@@ -200,6 +207,8 @@ else:
 4. 반복문 종료후 answer를 출력한다.
 
 
+### 4.4. 소스코드
+
 ```python
 n = int(input())
 k = int(input())
@@ -243,6 +252,9 @@ print(answer)
 2. 자른 나무 길이가 m보다 작으면 right = mid-1로 높이를 낮춘다.
 3. 자른 나무 길이가 m보다 크면 left = mid+1로 높이를 높이고 answer = mid를 저장한다.
 
+
+### 5.4. 소스코드
+
 ```python
 n, m = map(int, input().split())
 trees = list(map(int, input().split()))
@@ -285,6 +297,9 @@ print(answer)
 5. sum의 절대값이 answer 값보다 작다면 answer에 sum을 저장하고, a,b = l,r를 저장한다.
 6. sum이 0보다 작다면 용해값을 키우기 위해 왼쪽값을 증가시킨다.
 7. sum이 0보다 크다면 용해값을 감소시키기 위해 오른쪽값을 감소시킨다.
+
+
+### 6.4. 소스코드
 
 ```python
 n = int(input())
@@ -334,6 +349,8 @@ print(liq[a], liq[b])
 3. 비어있지 않고, lis[-1] < num이면 꺼낸 값을 추가한다.
 4. 꺼낸 값이 lis의 마지막 값보다 작으면 이분탐색으로 들어갈 index를 찾고 덮어씌운다.
 5. 반복이 끝나면 lis의 길이를 출력한다.
+
+### 7.4. 소스코드
 
 ```python
 import sys
@@ -385,6 +402,8 @@ print(len(lis))
 5. 반복문이 끝난 후, i+1부터 res까지의 타일 수를 count한다. = res - (i+1) + 1
 6. 각 위치별 칠할 수 있는 타일 개수를 출력한다.
 
+### 8.4. 소스코드
+
 ```python
 import sys
 
@@ -429,6 +448,8 @@ print(' '.join(answer))
 2. mid 계산 후 cnt가 n을 만족하는 지 확인한다.
 3. cnt가 n보다 작을 경우 너무 크게 잘랐으므로, right = mid-1
 4. cnt가 n보다 크거나 작을 경우 너무 작게 잘랐으므로, answer=mid 저장 후 left = mid+1
+
+### 9.4. 소스코드
 
 ```python
 import sys
@@ -476,6 +497,8 @@ print(answer)
 4. 휴게소 설치 개수가 m보다 크면, 너무 많이 설치했으므로 간격을 줄인다. right = mid-1
 5. 휴게소 설치 개수가 m보다 작거나 같으면, 너무 적게 설치했으므로 간격을 늘린다. left = mid+1
 
+### 10.4. 소스코드
+
 ```python
 n, m, distance = map(int, input().split())
 conv = list(map(int, input().split()))
@@ -501,3 +524,131 @@ while left<=right:
         answer = mid 
 print(answer)
 ```
+
+## 11. [8983 사냥꾼](https://www.acmicpc.net/problem/8983)
+![image](https://user-images.githubusercontent.com/44918665/128991303-6a701950-2377-449f-a636-7755ff7bc7d6.png)
+![image](https://user-images.githubusercontent.com/44918665/128991352-611dea42-92c1-4fd1-91cc-c9d3467bce00.png)
+
+
+### 11.1. 문제유형
+- 이분탐색, 정렬
+
+### 11.2. 자료구조
+- m (int): 사대의 수
+- n (int): 동물의 수
+- l (int): 사대 사정거리
+- gun (list): 사대 좌표를 담은 리스트
+- animal (list): 동물 좌표를 담은 리스트
+- cnt (int): 잡은 동물의 수
+- s (int): 해당 동물을 잡을 수 있는 최소 사대 좌표
+- e (int): 해당 동물을 잡을 수 있는 최대 사대 좌표
+- left, right(int): 사대 좌표의 최소값(0), 최대값(m-1) 인덱스
+- mid (int): 동물을 잡을 수 있는 사대 좌표값 (left+right)//2
+
+### 11.3. 해결과정
+- ⭐ 사대 거리를 고정하고 가능한 동물 수를 구하려고 하면 시간 복잡도가 높아진다. (n^2)
+- ⭐ 따라서 동물을 고정하고, 잡을 수 있는 사대가 존재하는 지 확인하는 하는 것이 쉽다. (nlogn)
+- ⭐ 동물을 잡을 수 있는 사대 좌표는 s = x+y-l (최소값) ~ e = x-y+l 이다. (l 최대 범위가 크기 때문)
+- 사대 좌표를 담은 리스트를 이분탐색할 것이므로 정렬 후 수행한다.
+1. x, y좌표별로 s, e를 계산한다.
+2. left, right 지정 후 left<=right 동안 mid값이 s와 e 사이에 속하는 지 체크한다.
+3. 반복문 조기 종료 조건은 y가 l보다 큰 경우이다. 이 경우 동물을 잡을 수 없다.
+4. 해당 구간에 mid가 속한다면 cnt를 증가시킨 후 반복문을 탈출한다.
+5. mid가 s보다 작다면 left = mid + 1
+6. mid가 s보다 크다면 right = mid - 1
+
+### 11.4. 소스코드
+
+```python
+import sys
+
+m, n, l = map(int, input().split())
+gun = list(map(int, sys.stdin.readline().split()))
+animal = list(map(int, sys.stdin.readline().split()) for _ in range(n))
+gun.sort()
+cnt = 0
+
+for x, y in animal:
+    if (y>l):
+        continue
+    s = x+y-l
+    e = x-y+l
+    left, right = 0, m-1
+    while left <= right:
+        mid = (left+right)//2
+        if gun[mid] >= s and gun[mid] <= e:
+            cnt += 1
+            break
+        elif gun[mid] < e:
+            left = mid + 1
+        else:
+            right = mid - 1
+print(cnt)
+```
+
+## 12. 11977 Angry Cows
+![image](https://user-images.githubusercontent.com/44918665/128991449-72097d53-154e-4647-8224-aaafb6eac62a.png)
+
+### 12.1. 문제유형
+- 이분탐색, 정렬, 브루트포스
+
+### 12.2. 자료구조
+- n (int): 건초의 수
+- bay (list): 건초의 위치를 담은 리스트
+- cur (int): 현재 건초의 위치 인덱스
+- rad (int): 폭발 사정거리
+- l (int): 옮겨 붙을 왼쪽 건초 좌표 인덱스
+- r (int): 옮겨 붙을 오른쪽 건초 좌표 인덱스
+- cnt (int): 폭발시켜 태운 건초의 최대값
+
+### 12.3. 해결과정
+- ⭐왼쪽으로 옮겨 붙는 경우와 오른쪽으로 옮겨 붙은 경우를 나누어 구했다.
+- ⭐왼쪽으로 옮겨 붙을 때는 터뜨린 가장 왼쪽 건초 index까지 count한 후 rad를 증가시킨다.
+- ⭐오른쪽으로 옮겨 붙을 때 역시, 터뜨린 가장 오른쪽 건초 index까지 count한 후 rad를 증가시킨다.
+1. 0번째 건초부터 n-1번째 건초까지 아래 과정을 반복한다.
+2. l을 현재위치-1로 설정 후왼쪽으로 불태운 건초 개수를 구하는 과정을 반복한다.
+3. 반복 종료 조건은 l<0 (더 이상 건초 없음) or bay[cur]-bay[l]>rad (폭발 사정거리 밖)인 경우이다.
+4. 반복 종료 조건이 아니라면 l>=0 and bay[cur]-bay[l]<=rad(폭발 사정거리 안 일 경우)동안 cnt 개수를 증가시킨다.
+5. 4번 과정이 끝나면 현재 위치를 왼쪽 건초로 이동한 뒤 rad를 1증가시킨다.
+6. 오른쪽 건초에 대해서도 2-5과정을 반복한다.
+
+### 12.4. 소스코드
+
+```python
+n = int(input())
+bay = list(int(input()) for _ in range(n))
+bay.sort()
+
+answer = 0
+
+for i in range(n):
+    cur, rad = i, 1
+    cnt = 1
+    l = cur-1
+
+    while True:
+        if l < 0 or bay[cur]-bay[l]>rad:
+            break
+        while l >=0 and bay[cur]-bay[l]<=rad:
+            cnt += 1
+            l -=1
+        cur = l+1
+        rad += 1
+    
+    cur, rad = i,1
+    r = cur+1
+
+    while True:
+        if r >= n or bay[r]-bay[cur]>rad:
+            break
+        while r<n and bay[r]-bay[cur] <= rad:
+            cnt += 1
+            r += 1
+        cur = r-1
+        rad += 1
+    
+    answer = max(answer, cnt)
+print(answer)
+    
+```
+
