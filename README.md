@@ -67,3 +67,17 @@
     화) [1654 랜선 자르기](https://www.acmicpc.net/problem/1654) / [1477 휴게소 세우기](https://www.acmicpc.net/problem/1477)
 
     수) [8983 사냥꾼](https://www.acmicpc.net/problem/8983) / [11977 Angry cows](https://www.acmicpc.net/problem/11977)
+    
+- **6 Week [DFS]**
+
+    목) [1260 DFS와 BFS](https://www.acmicpc.net/problem/1260) / [2667 단지번호붙이기](https://www.acmicpc.net/problem/2667)
+
+    금) [1987 알파벳](https://www.acmicpc.net/problem/1987) / [1012 유기농배추](https://www.acmicpc.net/problem/1012)
+
+    토) [10026 적록색약](https://www.acmicpc.net/problem/10026) / [11725 트리의 부모 찾기](https://www.acmicpc.net/problem/11725)
+
+    월) [1707 이분 그래프](https://www.acmicpc.net/problem/1707) / [4963 섬의 개수](https://www.acmicpc.net/problem/4963)
+
+    화) [2573 빙산](https://www.acmicpc.net/problem/2573) / [1068 트리](https://www.acmicpc.net/problem/1068)
+
+    수) [1520 내리막길](https://www.acmicpc.net/problem/1520) / [1937 욕심쟁이 판다](https://www.acmicpc.net/problem/1937)
