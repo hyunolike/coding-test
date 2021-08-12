@@ -13,7 +13,7 @@
 11. [1520 내리막길](#11-1520-내리막길)
 12. [1937 욕심쟁이 판다](#12-1937-욕심쟁이-판다)
 
-## 1. 1260 DFS와 BFS
+## 1. [1260 DFS와 BFS](https://www.acmicpc.net/problem/1260)
 ![image](https://user-images.githubusercontent.com/44918665/129136707-44d99800-7866-4823-9fae-5dd0982b07c8.png)
 
 ### 1.1. 문제유형
@@ -66,3 +66,60 @@ visited = [0]*(n+1)
 print()
 bfs(v)
 ```
+
+## 2. [2667 단지번호붙이기](https://www.acmicpc.net/problem/2667)
+![image](https://user-images.githubusercontent.com/44918665/129139685-661bb533-b9ff-4733-8c36-acf5732336e1.png)
+
+### 2.1. 문제유형
+- 그래프
+
+### 2.2. 자료구조
+- graph (2d list): 아파트 단지 정보를 저장하는 2차원 리스트
+- visited (2d list): 방문한 아파트 위치를 저장하는 2차원 리스트
+- cnt (int): 아파트 단지 수를 count하는 변수
+- search (function):
+    - i (int): x좌표
+    - j (int): y좌표
+    - (i,j)를 방문한 뒤 graph 좌표를 0으로, visited 좌표를 1로 변경 후 cnt를 1증가시키는 함수
+    - i, j가 그래프 최소, 최대 범위를 벗어나거나, graph 값이 0인 곳을 만날 때 종료
+
+### 2.3. 해결과정
+1. 한 좌표씩 방문한 곳인지, 그래프가 연결된 곳인지 확인한다.
+2. 만약 방문하지 않았고, graph값이 존재한다면 search 함수를 호출한다.
+3. search 함수 결과로 count 된 cnt값을 answer에 저장하고, cnt값을 초기화한다.
+
+### 2.4. 소스코드
+
+```python
+n = int(input())
+graph = list(list(map(int, input())) for _ in range(n))
+visited = [[0]*n for _ in range(n)]
+answer = []
+cnt = 0
+
+def search(i, j):
+    global cnt
+    if i<0 or j>=n or i>=n or j<0 or graph[i][j]==0:
+        return
+    graph[i][j]=0
+    visited[i][j]=1
+    cnt += 1
+    
+    search(i+1, j)
+    search(i, j+1)
+    search(i-1, j)
+    search(i, j-1)
+
+for i in range(n):
+    for j in range(n):
+        if visited[i][j]==0 and graph[i][j]==1:
+            search(i,j)
+            answer.append(cnt)
+            cnt = 0
+
+print(len(answer))
+for i in sorted(answer):
+    print(i)
+
+```
+
