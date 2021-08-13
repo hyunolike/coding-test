@@ -136,7 +136,6 @@ for i in sorted(answer):
 - q (int): 방문한 칸 정보인 x,y, 알파벳을 저장하는 set
 - dx, dy (int): 맵 상에서 상,하,좌,우 좌표이동을 위한 리스트
 - alphas (int): 현재 방문한 알파벳들을 이어붙인 문자열
-- 
 - BFS (fucntion)
     - x, y (int): x,y 좌표
     - x, y로부터 방문 가능한 칸을 BFS 탐색을 수행하는 함수
