@@ -121,6 +121,129 @@ for i in range(n):
 print(len(answer))
 for i in sorted(answer):
     print(i)
+```
 
+## 3. [1987 알파벳](https://www.acmicpc.net/problem/1987)
+![image](https://user-images.githubusercontent.com/44918665/129364411-0e76af2c-1ae0-4c3c-a6e3-a772a2dbb335.png)
+
+### 3.1. 문제유형
+- DFS, BFS
+
+### 3.2. 자료구조
+- BFS
+- nx, ny (int): 이동한 위치 좌표
+- answer (int): 최대로 방문할 수 있는 칸 수
+- q (int): 방문한 칸 정보인 x,y, 알파벳을 저장하는 set
+- dx, dy (int): 맵 상에서 상,하,좌,우 좌표이동을 위한 리스트
+- alphas (int): 현재 방문한 알파벳들을 이어붙인 문자열
+- BFS (fucntion)
+    - x, y (int): x,y 좌표
+    - x, y로부터 방문 가능한 칸을 BFS 탐색을 수행하는 함수
+
+### 3.3. 해결과정
+- BFS
+1. (0,0)부터 BFS탐색을 시작한다.
+2. q에 현재 위치 정보 (x, y, board[x][y])를 저장한다.
+3. q가 차 있을 동안 아래 과정을 반복한다.
+4. q에 들어 있는 x,y, alphabets을 꺼낸다.
+5. 현재 위치를 기준으로 상하좌우를 탐색한다.
+6. 만약 지도 범위 안이고, 방문하지 않은 알파벳이라면 q에 좌표와 방문문자열 정보를 추가한다.
+7. answer 값을 alphabets + 1로 갱신한다.
+
+### 3.4. 소스코드
+
+```python
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
+
+def BFS(x, y):
+    global answer
+    q = set([(x, y, board[x][y])])
+
+    while q:
+        x, y, alphas = q.pop()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            if ((0 <= nx < R) and (0 <= ny < C)) and (board[nx][ny] not in alphas):
+                q.add((nx,ny,alphas + board[nx][ny]))
+                answer = max(answer, len(alphabets)+1)
+
+R, C = map(int, input().split())
+board = [list(map(str, input())) for _ in range(R)]
+
+
+answer = 1
+BFS(0, 0)
+print(answer)
+```
+
+
+## 4. [1012 유기농배추](https://www.acmicpc.net/problem/1012)
+![image](https://user-images.githubusercontent.com/44918665/129364316-64350288-a2dc-40e9-a0c9-59e78819c9f8.png)
+![image](https://user-images.githubusercontent.com/44918665/129364365-439f2ad2-6e15-430a-85b6-80bad8abc01a.png)
+
+### 4.1. 문제유형
+- DFS, BFS
+
+### 4.2. 자료구조
+- dx, dy (List): 상하좌우 이동을 위한 리스트
+- queue (Deque): BFS 탐색을 위한 queue
+- x, y (int): 현재 위치 좌표
+- nx, ny (int): 이동한 위치 좌표
+- field (2d-list): 배추좌표를 저장하는 2차원 리스트
+- BFS (function):
+    - x, y (int): 위치 좌표 
+    - 현재 위치를 기준으로 연결된 배추에 대해 BFS 탐색을 수행하는 함수
+
+### 4.3. 해결과정
+- BFS
+1. 전체 field를 탐색하며 각각의 i,j에 대해 다음 조건을 만족하는 지 체크한다.
+2. 현재 i,j 좌표에 배추가 심어져 있는가(field[i][j]==1)
+3. 위 조건을 만족하면 BFS를 수행하고, cnt를 1 증가시킨다.
+4. BFS 함수는 현재 위치 x,y를 기준으로 상하좌우에 대해 다음 조건을 체크한다.
+5. 만약 field 범위 안이고 배추가 심어져 있다면(1), 해당 좌표를 queue에 넣는다.
+6. 그리고 해당 좌표 값에는 1이 아닌 2(이미 방문한 표시)로 변경한다.
+
+### 4.4. 소스코드
+
+```python
+from collections import deque
+
+t = int(input())
+
+def BFS(x,y):
+    dx=[-1,0,1,0]
+    dy=[0,-1,0,1]
+    queue=deque()
+    queue.append((x,y))
+
+    while queue:
+        x,y = queue.popleft()
+        for i in range(4):
+            nx=x+dx[i]
+            ny=y+dy[i]
+            if nx>=0 and nx<n and ny>=0 and ny<m:
+                if field[nx][ny]==1:
+                    queue.append((nx,ny))
+                    field[nx][ny]=2
+
+for _ in range(t):
+    m,n,k = map(int, input().split())
+    field=[[0]*m for _ in range(n)]
+    cnt = 0
+
+    for _ in range(k):
+        x,y = map(int, input().split())
+        field[y][x]=1
+    
+    for i in range(n):
+        for j in range(m):
+            if field[i][j]==1:
+                BFS(i,j)
+                cnt+=1
+    print(cnt)
 ```
 
