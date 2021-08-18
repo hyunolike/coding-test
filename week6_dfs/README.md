@@ -247,3 +247,62 @@ for _ in range(t):
     print(cnt)
 ```
 
+## 11. [1520 내리막길](https://www.acmicpc.net/problem/1520)
+![image](https://user-images.githubusercontent.com/44918665/129852841-e9bb5fdb-b2ea-4d87-a882-a77228bb46ff.png)
+![image](https://user-images.githubusercontent.com/44918665/129852984-01f155e6-68a8-462c-9320-131edc566603.png)
+
+### 11.1. 문제유형
+- 다이나믹 프로그래밍(DP)
+- 깊이우선탐색 (DFS)
+
+### 11.2. 자료구조
+- x, y (int): 지도 상 위치를 표시하는 변수
+- visited (2d-list): 방문여부와 발견한 경로 수를 저장하는 map
+
+### 11.3. 해결과정
+1. ⭐DFS와 DP 개념을 모두 알아야 시간초과 테스트를 통과할 수 있었다.
+2. ⭐방문한 위치를 표시 + 현재까지 찾은 경로의 수를 저장하기 위한 visited 지도를 생성한다.
+3. ⭐최대 재귀횟수를 증가시켜주기 위해 sys의 setrecursionlimit함수를 사용했다.
+4. (0,0)에서부터 동서남북을 탐색 후 지도 내 범위에 있으며 현 위치보다 낮은 칸을 방문한다.
+5. 만약 방문한 칸이 이미 방문한 위치라면 visited의 현 위치에 저장된 값을 반환한다.
+6. 만약 방문한 칸이 최종 목적지라면 1을 반환한다.
+7. 3,4에 해당하지 않으면 동서남북을 탐색 후 현 위치보다 낮은 칸에 대해 DFS 탐색을 수행한다.
+8. 현재 visited 위치에 DFS 탐색 결과를 더해준 뒤 visited 현재 위치를 반환한다.
+
+- 결국 해당 위치가 목적지에 도달할 수 있는 경로라면 숫자가 증가한다.
+- DFS(0,0)에서부터 시작하므로, 도달 가능한 경로의 수가 visited의 (0,0)에 저장된다.
+
+### 11.4. 소스코드
+
+```python
+import sys
+sys.setrecursionlimit(10 ** 8)
+
+def DFS(x, y):
+    if x==m-1 and y==n-1:
+        return 1
+    if visited[x][y] != -1:
+        return visited[x][y]
+    visited[x][y]=0
+
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
+
+    for i in range(4):
+        a = x + dx[i]
+        b = y + dy[i]
+
+        if 0<=a<m and 0<=b<n and graph[a][b]<graph[x][y]:
+            visited[x][y] += DFS(a, b)
+        
+    return visited[x][y]
+
+if __name__=="__main__":
+    m, n = map(int, input().split())
+    graph = [list(map(int, input().split())) for _ in range(m)]
+    visited = [[-1]*n for _ in range(m)]
+    print(DFS(0, 0))
+    for a in visited:
+        print(a)
+```
+
