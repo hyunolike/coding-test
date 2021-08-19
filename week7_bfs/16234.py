@@ -43,7 +43,7 @@ while(True):
                     col = t%n
                     arr[row][col] = this_people
                
-   
+   #
     if change == 0:
         print(day)
         break
