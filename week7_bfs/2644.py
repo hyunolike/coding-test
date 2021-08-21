@@ -26,3 +26,4 @@ while stack:
             stack.append((i,count+1))
 if flag:
     print(-1)
+#
