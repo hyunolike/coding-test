@@ -28,11 +28,10 @@ def sol(x,y):
             my=tempY+dy[i]
             if (0<=mx<N) and (0<=my<N):
                 if grid[mx][my]=='1' and visit[mx][my]==0:
-                    queue.append((mx,my,count))
+                    queue.append((mx,my,countㅁ
                 elif grid[mx][my]=='0' and visit[mx][my]==0:
                     grid[mx][my]='1'
                     count=count+1
                     queue.append((mx,my,count))
     print(count)
 sol(0,0)
-
