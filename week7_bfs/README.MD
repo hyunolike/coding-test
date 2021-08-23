@@ -1,6 +1,6 @@
 # [7주] [BFS] 발표자료
 1. [2589 보물섬](#1-2589-보물섬)
-2. [2665 미로만들기](#2-2665-미로만들기]
+2. [2665 미로만들기](#2-2665-미로만들기)
 
 ## 1. [2589 보물섬](https://www.acmicpc.net/problem/2589)
 ![2021-08-20 (1)](https://user-images.githubusercontent.com/69501435/130209810-926175a4-adbc-4877-a365-17f4f513ebc8.png)
@@ -60,15 +60,15 @@ print(real_max)
 ## 2. [2665 미로만들기](https://www.acmicpc.net/problem/2665)
 ![2021-08-20 (2)](https://user-images.githubusercontent.com/69501435/130211047-733a57d2-212a-4b23-b3cf-a0c31220ee2a.png)
 
-### 1.1 자료구조
+### 2.1 자료구조
 1. dp (list) : [지금까지 몇개의 흑색칸을 지나왔는지 저장해놓는 list]
 2. stack (collections.deque()) : [bfs를 돌 큐(선입선출)]
-### 1.2 풀이과정
+### 2.2 풀이과정
 1. 처음 시작인 [0,0,0]을 넣고 stack이 빌 때까지 진행
 2. 스택에서 popleft를 하고 나온 곳 기준으로 상하좌우의 dp속 값이 지금의 채울 수 있는 값보다 크게 되면 dp속 값을 변경하고 stack에 append할 수 있도록 한다.
 3. 예로 dp에 이미 3이라는 값이 입력 되있는데 지금의 과정에서 그 칸을 1로 채울 수 있으면 stack에 append 그리고 dp값을 변경 한다.
 
-### 1.3 소스코드
+### 2.3 소스코드
 
 ```python
 import sys
