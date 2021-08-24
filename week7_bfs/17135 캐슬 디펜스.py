@@ -1,84 +1,97 @@
-import sys
-import copy
-from itertools import combinations
+from sys import stdin
+input = stdin.readline
 from collections import deque
-input = sys.stdin.readline
+from itertools import combinations
 
-n, m, d = map(int, input().split())
-ogmap = [list(map(int, input().split())) for _ in range(n)]
-archers = [i for i in range(m)]
+# 상 좌 우
+dr = (0, -1, 0)
+dc = (-1, 0, 1)
 
-# 궁수 위치 정하기 - 경우의 수
-pos = deque(combinations(archers, 3))
-# for p in pos:
-#     print(p)
-answer = 0
+# 궁수가 있는 열
+def killEnemy(pos, A):
+    enemyLst = set()   # 죽일 적의 후보 위치 리스트 - 중복 제거를 위해 set 사용
+    
+    check = [[-1] * M for _ in range(N)]        # 궁수별 적 찾는 visited를 공유하기 위함
+    for col in pos:
+        if A[N-1][col]:     # 탐색 시작 위치에 적이 있는 경우 가장 가까운 적임
+            enemyLst.add((N-1, col))
+            continue
 
-# 궁수 위치 Fix
-for archer in pos: # 궁수가 0,1,2자리에 위치
-    a,b,c = archer
-    graph = copy.deepcopy(ogmap)
-    shot, killed, cnt = 0, 0, 0
-
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
-
-    while True:
-        if cnt == n:
-            break
-        cnt += 1
-        dead = set()
-        for j in range(m): # 성벽 바로 앞부터 탐색
-            stop = False
-            for i in range(n-1, -1, -1): # 성벽 바로 앞부터 오른쪽 탐색
-                distance = abs(n-i)+abs(a-j)
-                if graph[i][j] == 1 and distance <= d: # 궁수 앞에 적 존재
-                    graph[i][j]=0
-                    # dead.add((i, j))
-                    shot += 1
-                    stop = True
-                if stop:
-                    break
-            if stop:
+        check[N-1][col] = col
+        Q = deque([(N-1, col, 1)])      # (위치, 거리)
+        flag = False
+        while Q:
+            r, c, dis = Q.popleft()
+            if dis == D:     # 거리 공격 제한 거리 D 넘으면
                 break
-        for j in range(m): # 성벽 바로 앞부터 탐색
-            stop = False
-            for i in range(n-1, -1, -1): # 성벽 바로 앞부터 오른쪽 탐색
-                distance = abs(n-i)+abs(b-j)
-                if graph[i][j] == 1 and distance <= d: # 궁수 앞에 적 존재
-                    graph[i][j]=0
-                    # dead.add((i, j))
-                    shot += 1
-                    stop = True
+            for d in range(3):
+                nr = r + dr[d]
+                nc = c + dc[d]
+                if not (0 <= nr < N and 0 <= nc < M) or check[nr][nc] == col:
+                    continue
+                check[nr][nc] = col
+                Q.append((nr, nc, dis+1))
+                if A[nr][nc]:       # 가장 처음 만난 적을 enemyLst에 담기
+                    enemyLst.add((nr, nc))
+                    flag = True
                     break
-                if stop:
-                    break
-            if stop:
+            if flag:
                 break
-        for j in range(m): # 성벽 바로 앞부터 탐색
-            stop = False
-            for i in range(n-1, -1, -1): # 성벽 바로 앞부터 오른쪽 탐색
-                distance = abs(n-i)+abs(c-j)
-                if graph[i][j] == 1 and distance <= d: # 궁수 앞에 적 존재
-                    graph[i][j]=0
-                    # dead.add((i, j))
-                    shot += 1
-                    stop = True
-                    break
-                if stop:
-                    break
-            if stop:
-                break
-        for x, y in dead:
-            graph[x][y]=0
-            killed += 1
+    return enemyLst
 
-        # 궁수가 활을 다 쏘았으므로 적 1칸 전진
-        for i in range(n-1, 0, -1):
-            graph[i] = graph[i-1]
-        graph[0] = [0 for _ in range(m)]
+# 궁수의 공격
+def attack(pos):
+    global maxKill
+    A = [x[:] for x in raw]     # 궁수 배치 후 사용할 맵 A에 복사
+    killCnt = 0                 # 죽인 적의 수
+    
+    for _ in range(N):
+        enemyLst = killEnemy(pos, A)    # 죽일 후보 적의 위치 리스트
 
-    if killed > answer:
-        answer = killed
+        # 적 죽이기
+        for er, ec in enemyLst:     # 타겟 적 죽이기
+            A[er][ec] = 0
+            killCnt += 1
+        
+        # 적 한 칸씩 아래로 이동
+        A.pop()
+        A.insert(0, [0] * M)
 
-print(answer)
+    maxKill = max(maxKill, killCnt)     # 최댓값 갱신
+
+# (방법 1) 재귀로 조합 구현 => 3명의 궁수 배치 경우의 수 구하기
+# def posArcher(depth, k):
+#     global maxKill
+#     if maxKill == enemyCnt:     # 이미 다 죽였으면
+#         return
+
+#     if depth == 3:
+#         attack(castle)
+#         return
+
+#     for i in range(k, M):
+#         castle.append(i)
+#         posArcher(depth+1, i+1)
+#         castle.pop()
+
+# main
+N, M, D = map(int, input().split())
+enemyCnt = 0        # 맵에 있는 모든 적의 수
+raw = []
+for r in range(N):
+    raw.append(list(map(int, input().split())))
+    for c in range(M):
+        if raw[r][c]:
+            enemyCnt += 1
+maxKill = 0
+
+# 방법 1 - dfs 재귀로 조합 구현
+# castle = []
+# posArcher(0, 0)
+
+# 방법 2 - itertools 패키지의 combination 라이브러리 사용
+for comb in combinations(range(M), 3):
+    attack(comb)
+    if maxKill == enemyCnt:     # 이미 다 죽였으면
+        break
+print(maxKill)
