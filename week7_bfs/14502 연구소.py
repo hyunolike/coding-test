@@ -1,13 +1,11 @@
-from itertools import combinations, permutations
+from itertools import combinations
 from collections import deque
 import copy
 
 def BFS(a, b):
     Q=deque([[a, b]])
-
     while Q:
         x, y = Q.popleft()
-        
         for i in range(4):
             nx=x+dx[i]
             ny=y+dy[i]
@@ -31,7 +29,6 @@ def count_map():
 
 n,m = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]
-
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 virus = []
@@ -41,7 +38,6 @@ for i in range(n):
     for j in range(m):
         if graph[i][j]==2:
             virus.append([i,j])
-
 cases = []
 for i in range(n):
     for j in range(m):
@@ -63,5 +59,4 @@ for walls in c:
         for x, y in virus:
             BFS(x, y)
         count_map()
-
 print(answer)
