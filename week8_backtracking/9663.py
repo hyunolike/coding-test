@@ -1,10 +1,8 @@
 import sys
 
-
 def way(row,col,goal,count):
     r = row[-1] + 1
     if r == goal:
-    
         return count+1
     possible_col=[True for _ in range(goal)]
     for i in range(r):
@@ -34,8 +32,8 @@ n = int(sys.stdin.readline())
 
 count = 0
 for i in range(n//2):
-        up = way([0],[i],n,0)
-        count+=up
+    up = way([0],[i],n,0)
+    count+=up
 count *= 2
 if n%2 == 1:
     count += way([0],[n//2],n,0)
