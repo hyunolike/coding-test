@@ -1,60 +1,24 @@
-
-import copy
-n,E,W,N,S=map(int,input().split())
-
-def dfs(X,Y):
+N,e,w,s,n = map(int, input().split())
 
 
+percent = [e/100,w/100,s/100,n/100]
+Map = [[0 for i in range(N*2+1)] for ii in range(N*2+1)]
 
+dirX = [1,-1,0,0]
+dirY = [0,0,-1,1]
 
+def func1(count, x,y):
+    if count==N:
+        return 1
+    Map[x][y] = 1 #방문표시
+    ret = 0
+    for i in range(4):
+        X = x+dirX[i]
+        Y = y+dirY[i]
+        if Map[X][Y]: #방문하였다면 무시하고 진행
+            continue
+        ret += func1(count+1,X,Y)*percent[i] #퍼센티지 곱해주기
+    Map[x][y] = 0 #이렇게 해당 경우의 수를 다 조사한뒤에는 방문한 지점을 지워줘야합니다.
+    return ret
 
-
-direction=['E','W','N','S']
-grid=[ [0]*29 for _ in range(29) ]
-dfs()
-prob=0
-for i in result:
-    temp=1
-    for j in i:
-        if j=='E':
-            temp*=E/100
-        elif j=='W':
-            temp*=W/100
-        elif j=='N':
-            temp*=N/100
-        elif j=='S':
-            temp*=S/100
-    prob+=temp
-print(prob)
-
-
-# def isMad(direct):
-#     grid=[ [0]*29 for _ in range(29) ]
-#     tempX,tempY=14,14
-#     grid[tempX][tempY]=1
-#     for i in direct:
-#         if i=='E':
-#             if grid[tempX][tempY+1]==1:
-#                 return False
-#             else:
-#                 grid[tempX][tempY+1]=1
-#                 tempY+=1
-#         elif i=='W':
-#             if grid[tempX][tempY-1]==1:
-#                 return False
-#             else:
-#                 grid[tempX][tempY-1]=1
-#                 tempY-=1
-#         elif i=='N':
-#             if grid[tempX-1][tempY]==1:
-#                 return False
-#             else:
-#                 grid[tempX-1][tempY]=1
-#                 tempX-=1
-#         elif i=='S':
-#             if grid[tempX+1][tempY]==1:
-#                 return False
-#             else:
-#                 grid[tempX+1][tempY]=1
-#                 tempX+=1
-#     return True    
+print(func1(0,N,N))
