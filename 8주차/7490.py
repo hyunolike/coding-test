@@ -13,7 +13,6 @@ def sol(array,N):
         sol(array,N)
         array.pop()
 
-
 count=0
 for _ in range(T):
     N=int(input())
