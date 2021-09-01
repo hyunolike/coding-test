@@ -12,7 +12,6 @@ def pick(total):
             pick(total+value)
             marbles.insert(i, tmp)
 
-
 n = int(input())
 marbles = list(map(int, input().split()))
 answer = 0
