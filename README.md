@@ -1,7 +1,7 @@
 # 💻 파이썬 코딩테스트 스터디 
 > 2021.07.12 ~ 
 
-![](https://img.shields.io/badge/%EC%8A%A4%ED%84%B0%EB%94%94%EC%9B%90-6-brightgreen?style=for-the-badge&logo=github&color=28b7b2)
+![](https://img.shields.io/badge/%EC%8A%A4%ED%84%B0%EB%94%94%EC%9B%90-5-brightgreen?style=for-the-badge&logo=github&color=28b7b2)
 
 <img src="img/coding-test.png">
 
@@ -34,6 +34,7 @@ git commit -m "Add : Day 숫자"
 |6주차|08.12-08.18|문제풀이|dfs|
 |7주차|08.19-08.25|문제풀이|bfs|
 |8주차|08.26-09.01|문제풀이|백트레킹|
+|9주차|09.02-09.08|문제풀이|시뮬레이션|
 
 ## 스터디 일지 
 
