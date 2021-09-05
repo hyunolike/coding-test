@@ -289,6 +289,8 @@ def solution3(phone_book):
 ![image](https://user-images.githubusercontent.com/44918665/132113220-92d5df02-6589-4f05-99dc-0d51daab0757.png)
 - Then why not always use dictionaries? Looking up entries in Python dictionaries is fast, but dicts use a lot of memory.* This is a classic example of a space-time tradeoff.
 - 딕셔너리의 경우 Look up시간이 굉장히 빠르지만, 메모리를 많이 사용한다. 따라서 space-time간 tradeoff 관점에서 둘 중 하나를 선택할 필요가 있다.
+- Update: From Python 3.6, dictionaries don’t use that much space. So it’s not even a space-time tradeoff any more.) 
+- 하지만 3.6버전 이후로부터는 dictionary가 사용하는 공간도 줄어듦에 따라 더 효과적인 자료구조라고 판단된다.
 
 
 
