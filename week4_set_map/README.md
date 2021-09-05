@@ -281,16 +281,14 @@ def solution3(phone_book):
     return True
 ```
 
-### 4. Dictionary VS List
+### 4. Dictionary vs List
 - 3번째 풀이에서 tmp를 hash_map에 존재하는 지 탐색하는 과정에서 의문이 생겼다.
 - 어쨋든 저장된 개수는 최대 100만개인데, List에서는 시간초과가 났다.
 - https://www.jessicayung.com/python-lists-vs-dictionaries-the-space-time-tradeoff/
 
 ![image](https://user-images.githubusercontent.com/44918665/132113220-92d5df02-6589-4f05-99dc-0d51daab0757.png)
-- Then why not always use dictionaries? Looking up entries in Python dictionaries is fast, but dicts use a lot of memory.* This is a classic example of a space-time tradeoff.
-- 딕셔너리의 경우 Look up시간이 굉장히 빠르지만, 메모리를 많이 사용한다. 따라서 space-time간 tradeoff 관점에서 둘 중 하나를 선택할 필요가 있다.
-- Update: From Python 3.6, dictionaries don’t use that much space. So it’s not even a space-time tradeoff any more.) 
-- 하지만 3.6버전 이후로부터는 dictionary가 사용하는 공간도 줄어듦에 따라 더 효과적인 자료구조라고 판단된다.
-
+- Then why not always use dictionaries? Looking up entries in Python dictionaries is fast, but dicts use a lot of memory.* This is a classic example of a space-time tradeoff. Update: From Python 3.6, dictionaries don’t use that much space. So it’s not even a space-time tradeoff any more.) Why is looking up entries in a dictionary so much faster? It’s because of the way Python implements dictionaries using hash tables. Dictionaries are Python’s built-in mapping type and so have also been highly optimised. Sets are implemented in a similar way.
+<br> 해당 링크의 글을 참고하자면, 기존 딕셔너리는 리스트에 비해 더 빠른 탐색이 가능하나 메모리 공간을 많이 차지하는 문제가 있었다. 따라서 space-time tradeoff 관계에 있었으나, Python 3.6 버전 업데이트 후로는 메모리 사용량도 감소하여 상충관계에서 벗어난 것으로 보인다. 
+- 그렇다면 왜, Dictionary는 List보다 탐색속도가 빠른 이유는 Hash Table로 구성된 자료구조이기 때문이다.
 
 
