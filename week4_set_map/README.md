@@ -224,3 +224,59 @@ result = [k for k,v in best.items() if v == max(best.values())]
 result.sort()
 print(result[0])
 ```
+
+## [프로그래머스 해시 - 전화번호 목록](https://programmers.co.kr/learn/courses/30/lessons/42577)
+![image](https://user-images.githubusercontent.com/44918665/132112708-5b17c69e-0077-4b7f-aa12-27015839a7ac.png)
+
+### 1. 문제유형
+- hash map
+
+### 2. 해결과정
+- 크게 3가지 풀이방법이 존재했다.
+1. 2중 for문을 활용하는 방법
+2. 문자열 내장함수 startswith를 사용한 방법
+3. hash를 활용한 방법
+
+- 결론적으로 1번 방법은 시간복잡도가 O(N^2)이므로 효율성 문제를 통과할 수 없다. 
+- 따라서 2번과 3번을 활용한 풀이가 가능하다.
+
+### 3. 소스코드
+```python
+def solution1(phone_book):
+    answer = True
+    phone_book = sorted(phone_book, key=len)
+    
+    for n1 in phone_book:
+        for n2 in phone_book:
+            if n1 == n2[:len(n1)] and n1 != n2:
+                answer = False
+                return answer
+    
+    return answer
+
+def solution2(phone_book):
+    phone_book.sort()
+    
+    for p1, p2 in zip(phone_book, phone_book[1:]):
+        if p2.startswith(p1):
+            return False
+    
+    return True
+
+
+from collections import defaultdict
+def solution3(phone_book):
+    hash_map = defaultdict(int)
+    
+    for p in phone_book:
+        hash_map[p] += 1
+    
+    for phone_number in phone_book:
+        tmp = ''
+        for t in phone_number:
+            tmp += t
+            if tmp in hash_map.keys() and tmp != phone_number:
+                return False
+    
+    return True
+```
