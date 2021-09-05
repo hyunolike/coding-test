@@ -283,7 +283,7 @@ def solution3(phone_book):
 
 ### 4. Dictionary VS List
 - 3번째 풀이에서 tmp를 hash_map에 존재하는 지 탐색하는 과정에서 의문이 생겼다.
-- 어쨋든 저장된 개수를 최대 100만개이기 때문인데, List에서는 시간초과가 났다.
+- 어쨋든 저장된 개수는 최대 100만개인데, List에서는 시간초과가 났다.
 - https://www.jessicayung.com/python-lists-vs-dictionaries-the-space-time-tradeoff/
 
 ![image](https://user-images.githubusercontent.com/44918665/132113220-92d5df02-6589-4f05-99dc-0d51daab0757.png)
