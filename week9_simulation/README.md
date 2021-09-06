@@ -5,7 +5,7 @@
 3. 3190 뱀
 4. 1713 후보추천하기
 5. [13335 트럭](#5-13335-트럭)
-6. 14499 주사위굴리기
+6. [14499 주사위 굴리기](#6-14499-주사위-굴리기)
 7. 14503 로봇 청소기
 8. 17140 이차원 배열과 연산
 9. 16236 아기상어
@@ -15,7 +15,7 @@
 ![image](https://user-images.githubusercontent.com/44918665/132179064-c884a6c0-b746-4fdc-83f3-c8189f2a933c.png)
 
 ### 5.1. 문제유형
-- Simulation
+- 시뮬레이션
 
 ### 5.2. 풀이과정
 - 주어진 로직을 따라가며 그대로 구현하였다.
@@ -58,4 +58,57 @@ while bridge:
 print(sec+1)
 ```
 
+## 6. [14499 주사위 굴리기](https://www.acmicpc.net/problem/14499)
+![image](https://user-images.githubusercontent.com/44918665/132179923-07b2d4df-20b9-467d-87a0-541a04d54a64.png)
 
+### 6.1. 문제유형
+- 시뮬레이션
+
+### 6.2. 풀이과정
+- 이 문제는 크게 3가지를 고려해야 해결할 수 있었다.
+- 1. 뒤집어진 좌표계 (r,c)로 이동한다. r은 북쪽으로부터 떨어진 수, c는 서쪽으로부터 떨어진 수
+    - 따라서 동,서,북,남 이동 시 반대로 좌표계를 설정해주어야한다.
+- 2. 두 번째는 동서남북 이동 시, 변하는 주사위 모양대로 변형시켜 주어야한다.
+    - 실제 전개도를 그려보며, 어떤 특징이 있는지 파악했다.
+- 3. 현재 좌표값이 0이면 현재 좌표에 주사위 밑면 값을 저장한다.
+    - 현재 좌표값이 0이 아니라면, 주사위 밑면에 좌표값을 저장하고 좌표값을 0으로 바꾼다.
+
+### 6.3. 소스코드
+
+```python
+n, m, x, y, k = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(n)]
+commands = list(map(int, input().split()))
+
+# dx=[1,-1,0,0]
+# dy=[0,0,-1,1]
+dx=[0,0,-1,1] # x좌표가 북쪽으로부터 떨어진 개수. 위아래. 
+dy=[1,-1,0,0] # y좌표가 서쪽으로부터 떨어진 개수. 좌우
+dice=[0,0,0,0,0,0]
+
+for dir in commands:
+    nx = x + dx[dir-1]
+    ny = y + dy[dir-1]
+    
+    if not (0<=nx<n and 0<=ny<m):
+        continue
+
+    if dir == 1:
+        dice[0],dice[1],dice[2],dice[5] = dice[5],dice[0],dice[1],dice[2]
+    elif dir == 2:
+        dice[0],dice[1],dice[2],dice[5] = dice[1],dice[2],dice[5],dice[0]
+    elif dir == 3:
+        dice[1],dice[3],dice[4],dice[5] = dice[4],dice[1],dice[5],dice[3]
+    else:
+        dice[1],dice[3],dice[4],dice[5] = dice[3],dice[5],dice[1],dice[4]
+    
+    if graph[nx][ny] == 0:
+        graph[nx][ny] = dice[1]
+    else:
+        dice[1] = graph[nx][ny]
+        graph[nx][ny] = 0
+    
+    x, y = nx, ny
+    print(dice[5])
+
+```
