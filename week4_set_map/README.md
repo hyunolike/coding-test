@@ -290,4 +290,30 @@ def solution3(phone_book):
 - Then why not always use dictionaries? Looking up entries in Python dictionaries is fast, but dicts use a lot of memory.* This is a classic example of a space-time tradeoff. Update: From Python 3.6, dictionaries don’t use that much space. So it’s not even a space-time tradeoff any more.) Why is looking up entries in a dictionary so much faster? It’s because of the way Python implements dictionaries using hash tables. Dictionaries are Python’s built-in mapping type and so have also been highly optimised. Sets are implemented in a similar way.
 - 해당 링크의 글을 참고하자면, 기존 딕셔너리는 리스트에 비해 더 빠른 탐색이 가능하나 메모리 공간을 많이 차지하는 문제가 있었다. 따라서 space-time tradeoff 관계에 있었으나, Python 3.6 버전 업데이트 후로는 메모리 사용량도 감소하여 상충관계에서 벗어난 것으로 보인다. Dictionary는 List보다 탐색속도가 빠른 이유는 Hash Table로 구성된 자료구조이기 때문이다.
 
+## 프로그래머스 해시 - 위장
+![image](https://user-images.githubusercontent.com/44918665/132113824-e4783f8b-4c55-40e2-803e-3759d97624bf.png)
 
+### 1. 문제유형
+- hashmap
+
+### 2. 해결과정
+- 경우의 수 문제이므로 각 type별 의상 개수를 구한다.
+- 각 type별 의상 개수 + 1을 곱한 값에서 -1 처리를 구한다.
+- 의상 개수 + 1을 하는 이유는 해당 의상을 안 입는 경우가 있기 때문이다.
+- 결과값에서 -1 처리를 하는 이유는 어떤 의상도 입지 않은 경우를 제거하기 위함이다.
+
+### 3. 소스코드
+``` python
+from collections import defaultdict
+def solution(clothes):
+    answer = 1
+    hashmap = defaultdict(list)
+    
+    for name, type in clothes:
+        hashmap[type].append(name)
+    
+    for k, v in hashmap.items():
+        answer *= len(v)+1
+    
+    return answer-1
+```
