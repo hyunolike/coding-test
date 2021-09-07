@@ -112,3 +112,53 @@ for dir in commands:
     print(dice[5])
 
 ```
+
+## 7. [14503 로봇 청소기](https://www.acmicpc.net/problem/14503)
+![image](https://user-images.githubusercontent.com/44918665/132345088-47ae57f6-d385-4a27-b42c-d946d306a9fc.png)
+
+### 7.1. 문제유형
+- 시뮬레이션
+
+### 7.2. 풀이과정
+- 3가지를 정확히 구현해야 해결할 수 있었다.
+1. 좌표 이동을 기존 좌표계와 반대로 구현해야한다.
+2. 좌표 이동 시 방향 d가 현재 기준 왼쪽부터 탐색하도록 구현해야 한다.
+3. 방향 d에 대해 후진 위치를 정확히 지정해주어야 한다.
+- 1,2번까지는 제대로 구현했으나, 3번 제대로 지정하지 못해 오랜 시간이 소요되었다.
+
+### 7.3. 소스코드
+```python
+n, m = map(int, input().split())
+r,c,d = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(n)]
+visited = [[0]*m for _ in range(n)]
+
+dx=[-1,0,1,0] #북,동,남,서
+dy=[0,1,0,-1]
+
+def DFS(x, y, d):
+    global answer
+    if graph[x][y]==0:
+        graph[x][y]=2
+        answer+=1
+
+    for _ in range(4):
+        idx=(d+3)%4
+        nx,ny=x+dx[idx],y+dy[idx]
+        if graph[nx][ny]==0:
+            DFS(nx,ny,idx)
+            return 0
+        d=idx
+    nd=(d+2)%4 # 후진 위치 지정
+    nx,ny=x+dx[nd],y+dy[nd]
+    if graph[nx][ny]==1:
+        return 0
+    DFS(nx,ny,d) # 방향을 유지한 채 후진
+        
+answer = 0
+DFS(r, c, d)
+print(answer)
+
+```
+### 7.4. 노트필기
+![image](https://user-images.githubusercontent.com/44918665/132345518-96ba503d-f8c2-41e1-a7b9-8649a10097ed.png)
