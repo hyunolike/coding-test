@@ -358,4 +358,5 @@ def solution(genres, plays):
     return answer
 ```
 ### 4. 노트필기
-[노트필기.pdf](https://github.com/ghgit1798/coding-test/files/7120729/default.pdf)
+![image](https://user-images.githubusercontent.com/44918665/132329017-34bd68fe-e0ab-4be0-9628-ec52e9d21365.png)
+
