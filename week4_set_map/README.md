@@ -317,3 +317,43 @@ def solution(clothes):
     
     return answer-1
 ```
+
+## 프로그래머스 해시 - 베스트앨범
+![image](https://user-images.githubusercontent.com/44918665/132327961-c601aee4-62ae-4b68-8794-03177f21f530.png)
+
+### 1. 문제유형
+- hashmap
+
+### 2. 해결과정
+1.⭐가장 많이 재생된 장르 순서를 구한다.
+2. 장르별 인덱스, 재생횟수를 저장한 딕셔너리를 구한다.
+3.⭐2번에서 구한 딕셔너리를 재생횟수를 기준으로 정렬한다.
+4. 1번에서 구한 장르별 순서대로 3번에서 구한 인덱스를 2개씩 꺼낸다.
+
+### 3. 소스코드
+```python
+from collections import defaultdict
+
+def solution(genres, plays):
+    answer = []
+    gdict = defaultdict(int)
+    pdict = defaultdict(list)
+    
+    for genre,play in zip(genres, plays):
+        gdict[genre]+=play
+    gdict = sorted(gdict.items(), key=lambda x: x[1], reverse=True)
+    gdict = [genre for genre, plays in gdict]
+    
+    for i in range(len(genres)):
+        pdict[genres[i]].append([i, plays[i]])
+    
+    for i in range(len(genres)):
+        pdict[genres[i]] = sorted(pdict[genres[i]], key=lambda x: x[1], reverse=True)
+    
+    for genre in gdict:
+        tmp = pdict[genre][:2]
+        for idx, plays in tmp:
+            answer.append(idx)
+    
+    return answer
+```
