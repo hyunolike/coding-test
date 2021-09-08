@@ -110,8 +110,9 @@ for dir in commands:
     
     x, y = nx, ny
     print(dice[5])
-
 ```
+### 6.4. 노트필기
+![image](https://user-images.githubusercontent.com/44918665/132491285-4281d244-5dbb-4e37-b14b-88d8c6520dd4.png)
 
 ## 7. [14503 로봇 청소기](https://www.acmicpc.net/problem/14503)
 ![image](https://user-images.githubusercontent.com/44918665/132345088-47ae57f6-d385-4a27-b42c-d946d306a9fc.png)
