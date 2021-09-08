@@ -8,7 +8,7 @@ dice=[0,0,0,0,0,0]
 
 def rotate(direction):
     if direction==4:
-        temp=dice[1:4]+dice[0:1]+dice[4:]
+        temp = dice[1:4]+dice[0:1]+dice[4:]
     elif direction==3:
         temp=dice[3:4]+dice[0:3]+dice[4:]
     elif direction==2:

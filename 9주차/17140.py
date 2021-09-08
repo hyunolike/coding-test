@@ -1,5 +1,11 @@
+
 r,c,k=map(int,input().split())
 
-grid=[ list(map(int,input().split())) for _ in range(3)  ]
+A=[ list(map(int,input().split())) for _ in range(3)  ]
 
-print(grid)
+
+
+
+# if A[r-1][c-1]==k:
+#     print('time')
+

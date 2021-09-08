@@ -9,17 +9,6 @@ grid=[ list(map(int,input().split())) for _ in range(N)]
 dx=[-1,0,1,0]
 dy=[0,1,0,-1]
 
-# def cleanable(xx,yy):
-#     if grid[xx][yy]==0:
-#         return True
-#     for i in range(4):
-#         mx=xx+dx[i]
-#         my=yy+dy[i]
-#         if 0<=mx<N and 0<=my<M:
-#             if grid[mx][my]==0 or grid[mx][my]==2:
-#                 return True
-#     return False
-
 count=0
 while True:
     if grid[r][c]==0:
