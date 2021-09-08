@@ -1,5 +1,3 @@
-
-
 n, m, x, y, k = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]
 commands = list(map(int, input().split()))
