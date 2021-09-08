@@ -1,34 +1,59 @@
+import sys
+from collections import Counter
+r,c,k = map(int, sys.stdin.readline().split())
+maps = []
+for _ in range(3):
+    temp = list(map(int, sys.stdin.readline().split()))
+    maps.append(temp)
 
-r,c,k = map(int,input().split())
-graph = [list(map(int,input().split())) for _ in range(3)]
-
-time = 0
-while graph[r][c]!=k:
-    if time == 101:
+time=0
+find=False
+while time<=100:
+    if r<=len(maps) and c<=len(maps[0]) and maps[r-1][c-1]==k:
+        print(time)
+        find=True
         break
-    time += 1
-    rlen = len(graph)
-    clen = len(graph[0])
+    time+=1
+    max_col=0
+    next_maps=[]
+    if len(maps)>=len(maps[0]):
+        for rows in maps:
+            next_row=[]
+            count_table=sorted(list(Counter(rows).items()), key=lambda x: (x[1],x[0]))
+            for num, cnt in count_table:
+                if num==0:
+                    continue
+                next_row.append(num)
+                next_row.append(cnt)
+            max_col=max(max_col, len(next_row))
+            next_maps.append(next_row)
+        
+        for rows in next_maps:
+            if len(rows)<max_col:
+                for _ in range(max_col-len(rows)):
+                    rows.append(0)
+        maps=next_maps
+        continue
+    
+    elif len(maps)<len(maps[0]):
+        maps=list(map(list, zip(*maps)))
+        for rows in maps:
+            next_row=[]
+            count_table=sorted(list(Counter(rows).items()), key=lambda x:(x[1],x[0]))
+            for num, cnt in count_table:
+                if num==0:
+                    continue
+                next_row.append(num)
+                next_row.append(cnt)
+            max_col=max(max_col, len(next_row))
+            next_maps.append(next_row)
 
-    if rlen>=clen:
-        for i in range(rlen):
-            seta = set(graph[i])
-            tmp = [[value, graph[i].count(value)] for value in seta]
-            tmp = sorted(tmp, key=lambda x: (x[1], x[0]))
-            ttmp = []
-            for t in tmp:
-                ttmp.extend(t)
-            graph[i]=ttmp
-    else:
-        for i in range(clen):
-            temp = [graph[j][i] for j in range(rlen)]
-            seta = set(temp)
-            tmp = [[value, temp[i].count(value)] for value in seta]
-            tmp = sorted(tmp, key=lambda x: (x[1],x[0]))
-            ttmp = []
-            for t in tmp:
-                ttmp.extend(t)
-            for j in range(rlen):
-                graph[j][i] = ttmp[j]
-    
-    
+        for rows in next_maps:
+            if len(rows)<max_col:
+                for _ in range(max_col-len(rows)):
+                    rows.append(0)
+        
+        maps=list(map(list, zip(*next_maps)))
+        continue
+if not find:
+    print(-1)
