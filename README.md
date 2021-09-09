@@ -1,10 +1,6 @@
 # 💻 파이썬 코딩테스트 스터디 
 > 2021.07.12 ~ 
 
-![](https://img.shields.io/badge/%EC%8A%A4%ED%84%B0%EB%94%94%EC%9B%90-5-brightgreen?style=for-the-badge&logo=github&color=28b7b2)
-
-<img src="img/coding-test.png">
-
   - [일정안내](#일정안내)
   - [스터디 일지](#스터디-일지)
 
