@@ -27,3 +27,7 @@ while count!=0 :
             print(dist,fishList[i])
     print(dist)
     break
+
+
+#구현중~~~
+

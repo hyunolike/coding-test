@@ -9,7 +9,7 @@ for i in range(len(student)):
 
     if len(result)==N:
         result.sort(key=lambda x:(x[1],x[2]))
-        print(result)
+       # print(result)
         ff=True
         for j in range(N):
             if student[i]==result[j][0]:
@@ -32,7 +32,7 @@ for i in range(len(student)):
             result.append([student[i],1,count])
 
     count+=1
-print(result)
+#print(result)
 result.sort()
 for i in range(N):
     try:
