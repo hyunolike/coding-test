@@ -144,3 +144,97 @@ for num in numbers:
     answer.append(int(ans))
 print(sum(answer))
 ```
+
+## 5. [17609 회문](https://www.acmicpc.net/problem/17609)
+![image](https://user-images.githubusercontent.com/44918665/133080087-a8c9b951-ea27-438a-8aba-d780ddc3179c.png)
+
+### 5.1. 유형파악
+- Greedy
+- 그리디 유형은 **정렬과 세트**로 출제된다
+- 바로 문제 **유형을 파악하기 어렵다면 그리디**를 의심해볼 것
+- 그래도 파악이 어렵다면 DP, Graph 알고리즘을 고려할 것
+- 📌 그리디로 해법을 찾을 때는 항상 **정당한 해법인지 의심**해봐야 한다.
+
+### 5.2. 해결과정
+1. 문자를 최대 하나 삭제할 수 있으므로 그리디 유형임을 파악.
+2. 단, 모든 문자열을 검토할 경우 시간초과 발생.
+3. 따라서 유사 회문은 투 포인터 방식으로 구현.
+4. 투 포인터로 양 끝에서 같은지 탐색 후, 다를 경우 check_pseudo() 호출.
+5. check_pseudo는 왼쪽 삭제, 오른쪽 삭제 2번 호출
+6. 왼쪽, 오른쪽 호출된 값 중 하나라도 True라면 1. 아니라면 2 반환
+
+### 5.3. 소스코드
+```python
+# val == val[::-1]로 바로 체크 시 시간초과 발생
+# 유사 회문 검사 시 시간초과, 고로 투 포인터로 구현
+# 시간복잡도가 낮은 이유는, 다 비교하지 않더라도 중간에 return할 수 있기 때문
+
+def check_pseudo(val, l, r):
+    while l<r:
+        # 회문 체크
+        if val[l]==val[r]:
+            l+=1
+            r-=1
+        else:
+            return False
+    return True
+
+def check_answer(val, l, r):
+    if val == val[::-1]:
+        # 일단 회문체크
+        return 0
+    else:
+        # 유사회문체크
+        while l<r:
+            if val[l]==val[r]:
+                l+=1
+                r-=1
+            else:
+                case1=check_pseudo(val, l+1, r)
+                case2=check_pseudo(val, l, r-1)
+                if case1 or case2:
+                    return 1
+                else:
+                    return 2
+
+cases = int(input())
+for _ in range(cases):
+    val = input()
+    l, r = 0, len(val)-1
+    print(check_answer(val, l, r))
+```
+
+## 6. 1715 카드 정렬하기
+![image](https://user-images.githubusercontent.com/44918665/133080830-9e56fa6d-a58b-4bc6-8926-13b44207c864.png)
+
+### 6.1. 유형파악
+- 그리디, 정렬, 우선순위 큐
+- 📌 정렬과 함께 출제된 그리디 문제.
+- 정렬 후, 가장 작은 것부터 더해서 삽입해줘야 하므로 그리디 파악.
+- 단, 계산한 값을 넣은 뒤 다시 정렬해야 하므로 리스트 구현 시 시간 초과 발생.
+- 따라서 삽입 시 정렬된 상태를 유지해주는 우선순위 큐(힙 자료구조) 사용
+
+### 6.2 해결과정
+1. 비교 횟수가 최소가 되려면 작은 것부터 합쳐나가야 한다.
+2. 정렬을 수행한 뒤 2개를 꺼내 더하고 다시 넣어준다.
+3. 다시 넣어준 결과는 정렬을 유지한 상태여야 한다.
+4. 힙 자료구조에 값이 1개가 남을때까지 반복한다
+
+### 6.3. 소스코드
+```Python
+import heapq
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+data = list(int(input().strip()) for _ in range(n))
+total = 0
+heapq.heapify(data)
+while len(data) != 1:
+    a = heapq.heappop(data)
+    b = heapq.heappop(data)
+    c = a+b
+    heapq.heappush(data,c)
+    total += c
+print(total)
+```
