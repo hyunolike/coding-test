@@ -1,5 +1,5 @@
 # [10주] [Greedy] 발표자료
-1. [1826](#1-1826-연료-채우기)
+1. [1826 연료 채우기](#1-1826-연료-채우기)
 
 ## 1. [1825 연료 채우기](https://www.acmicpc.net/problem/1826)
 ![2021-09-12](https://user-images.githubusercontent.com/69501435/132987359-4449b02b-ca68-4408-a88a-9f1ede275445.png)
