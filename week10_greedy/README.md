@@ -204,7 +204,7 @@ for _ in range(cases):
     print(check_answer(val, l, r))
 ```
 
-## 6. 1715 카드 정렬하기
+## 6. [1715 카드 정렬하기](https://www.acmicpc.net/problem/1715)
 ![image](https://user-images.githubusercontent.com/44918665/133080830-9e56fa6d-a58b-4bc6-8926-13b44207c864.png)
 
 ### 6.1. 유형파악
