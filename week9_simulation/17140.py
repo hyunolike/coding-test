@@ -23,12 +23,13 @@ arr = [list(map(int,sys.stdin.readline().split())) for _ in range(3)]
 r, c= r-1, c-1
 
 count = 0
+if r < len(arr) and c < len(arr[0]):
+    if arr[r][c] == k:
+        print(count)
+        sys.exit()
 
 while count<100:
-    if r < len(arr) and c < len(arr[0]):
-        if arr[r][c] == k:
-            print(count)
-            sys.exit()
+    
     if len(arr) >= len(arr[0]):
         row(arr)
     else:
@@ -36,5 +37,9 @@ while count<100:
         row(arr)
         arr = list(map(list,zip(*arr)))
     count += 1
+    if r<len(arr) and c < len(arr[0]):
+        if arr[r][c] == k:
+            print(count)
+            sys.exit()
 print(-1)
 sys.exit()
