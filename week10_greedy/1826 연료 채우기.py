@@ -9,7 +9,7 @@ end, fuel = map(int, input().split())
 cases=[]
 cnt=0
 while fuel < end:
-    while heap and heap[0][0] <= fuel:
+    while heap and heap[0][0] <= fuel: # 연료로 도달할 수 있는 곳 체크
         place, f = heapq.heappop(heap)
         heapq.heappush(cases, [-1*f, place])
     
@@ -17,7 +17,7 @@ while fuel < end:
         cnt = -1
         break
     
-    f, place = heapq.heappop(cases)
+    f, place = heapq.heappop(cases) # 가장 멀리갈 수 있는 곳 체크
     fuel += -1*f
     cnt += 1
 
