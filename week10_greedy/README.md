@@ -238,3 +238,160 @@ while len(data) != 1:
     total += c
 print(total)
 ```
+
+## 7. [1826 연료 채우기](https://www.acmicpc.net/problem/1826)
+![image](https://user-images.githubusercontent.com/44918665/133387520-b5e742eb-a281-474b-8606-a40e3abcf037.png)
+
+### 7.1. 유형파악
+1. Greedy
+2. 그리디는 정렬과 같이 나올 확률이 높다.
+3. 바로 문제 유형이 보이지 않는다면 그리디를 의심해 볼 것
+4. DP, Graph 알고리즘과 함께 나오는 경우도 있다.
+5. 그리디 문제는 항상 최적의 해를 구할 수 있는지 의심해봐야 한다.
+
+### 7.2. 해결과정
+1. 현재 연료로 도달할 수 있는 주유소를 추린다.
+2. 추린 장소 중 가장 멀리 떨어진 주유소로 방문해본다.
+3. 해당 주유소에서 주유 후 다시 1-2번을 거친다.
+4. 만약 방문할 수 있는 장소가 없다면 -1을 출력한다.
+
+### 7.3. 소스코드
+```python
+import heapq
+
+n = int(input())
+heap = []
+for _ in range(n):
+    heapq.heappush(heap, list(map(int, input().split())))
+end, fuel = map(int, input().split())
+
+cases=[]
+cnt=0
+while fuel < end:
+    while heap and heap[0][0] <= fuel: # 연료로 도달할 수 있는 곳 체크
+        place, f = heapq.heappop(heap)
+        heapq.heappush(cases, [-1*f, place])
+    
+    if not cases:
+        cnt = -1
+        break
+    
+    f, place = heapq.heappop(cases) # 가장 멀리갈 수 있는 곳 체크
+    fuel += -1*f
+    cnt += 1
+
+print(cnt)
+```
+
+## 8. [1911 흙길 보수하기](https://www.acmicpc.net/problem/1911)
+![image](https://user-images.githubusercontent.com/44918665/133389046-a3a237f3-c0f3-40ec-82cd-1b799985c7cd.png)
+![image](https://user-images.githubusercontent.com/44918665/133389082-83720be9-f9b2-40ef-9e53-167429421845.png)
+
+### 8.1. 유형파악
+1. 그리디
+2. 그리디는 정렬과 함께 출제되는 경향
+3. 문제 유형 파악이 어려울 시 그리디 의심할 것
+4. 종종 DP, Graph 알고리즘과 함께 출제된다.
+
+### 8.2. 해결과정
+1. ⭐힌트와 예제를 유심히 볼 것
+2. 널빤지는 시작위치를 포함하고, 종료위치는 상관이 없다.
+3. 또한 널빤지가 종료 위치를 초과해서 다음 웅덩이를 덮을 수 있다.
+
+### 8.3 소스코드
+```python
+n, l = map(int, input().split())
+pool = [list(map(int, input().split())) for _ in range(n)]
+pool.sort()
+cnt = 0
+
+for i in range(n):
+    st, ed = pool[i]
+    if (ed-st) % l != 0:
+        length = (ed-st)//l + 1 ## 웅덩이를 다 덮지 못하는 경우 1개를 추가한다.
+    else:
+        length = (ed-st)//l ## 웅덩이가 딱 맞는 경우
+
+    cnt += length
+    new_ed = st + l*length
+
+    if (i+1) < n:
+        next_st = pool[i+1][0]
+        if new_ed > next_st:    ## 널빤지가 웅덩이를 초과해서 다음 웅덩이까지 덮는 경우
+            pool[i+1][0] = new_ed
+print(cnt)
+```
+
+## 9. [1105 팔](https://www.acmicpc.net/problem/1105)
+![image](https://user-images.githubusercontent.com/44918665/133390061-83356f29-7777-4439-b347-704a2c3d70fc.png)
+![image](https://user-images.githubusercontent.com/44918665/133390019-cf9ed66b-8a4b-4948-b6f0-a37c86df54cd.png)
+
+### 9.1. 유형파악
+1. 그리디
+2. 그리디 유형은 정렬과 함께 출제될 확률이 높다.
+3. 문제 유형을 한 번에 파악하기 어려울 경우 그리디를 의심해볼 것
+4. 종종 DP, Graph 알고리즘과 함께 출제된다.
+5. 그리디는 반드시 최적의 해를 구할 수 있는 지 의심해봐야한다.
+
+### 9.2. 해결과정
+1. 주어진 l, r 사이에서 8을 가장 적게 포함하는 횟수를 구하는 문제이다.
+2. 수의 범위가 20억이므로, 순차탐색으로 해결할 수 없다.
+3. 8의 최소 개수만 세면 된다는 것에 초점을 맞춰 풀어야한다.
+4. l과 r의 첫번째 자리수부터 비교하되 일치하면서 8이라면 개수를 카운트하고, 다르다면 stop한다.
+    - 만약 자리수의 값이 다르다면, (8이 아닌 다른값으로 설정해버리면 개수가 0이된다.)
+    - 바로 stop하는 이유는, 이미 앞 자리수가 다르므로 뒷자리는 다양한 값(0~9)을 가질 수 있다.
+
+### 9.3. 소스코드
+```python
+l, r = map(str, input().split())
+
+answer = 0
+
+if len(l)!=len(r):
+    print(0)
+    exit(0)
+
+for i in range(len(l)):
+    if l[i]==r[i]:
+        if l[i]=='8':
+            answer += 1
+    else:
+        break
+print(answer)
+```
+
+## 10. [12904 A와 B](https://www.acmicpc.net/problem/12904)
+![image](https://user-images.githubusercontent.com/44918665/133392021-db52fd55-10dc-4f5f-acc7-58c4496f3cc7.png)
+![image](https://user-images.githubusercontent.com/44918665/133392081-7f230626-4399-4868-8779-f0202cff45ca.png)
+
+### 10.1. 유형파악
+1. 문자열, 그리디, 구현
+2. 그리디 + 정렬 유형이 많다는 걸 인지할 것
+3. 문제 유형 파악이 어려울 시 그리디 고려할 것
+4. DP, Graph와 함께 나오는 경우도 있음을 인지할 것
+5. 그리디로 풀이할 시 반드시 최적의 해를 구할 수 있는지 고려할 것
+
+### 10.2. 해결과정
+1. 이 문제는 S -> T로 가는 경우의 수를 계산하면 어렵다.
+2. S가 T가 될 수 있는 지 확인하는 걸 뒤집어서 접근하면 쉽다.
+3. T가 S가 될 수 있는 지 규칙 1, 규칙 2를 뒤집어서 적용해서 해결했다.
+
+### 10.3. 소스코드
+```python
+s = input()
+t = input()
+s, t = list(s), list(t)
+
+for i in range(len(t)-1, -1, -1):
+    if t==s:
+        print(1)
+        exit(0)
+    elif t[i]=='A':
+        t.pop()
+    else:
+        t.pop()
+        t = t[::-1]
+print(0)
+```
+
+
