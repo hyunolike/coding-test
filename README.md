@@ -249,6 +249,7 @@ git commit -m "Add : Day 숫자"
 <summary><strong>prefix_sum(2021.09.17~ 2021.09.22)</strong></summary>
 
 <br/>
+
 |문제 번호|문제 이름|
 |:-------:|:-------:|
 |20438|출석체크|
