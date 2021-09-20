@@ -190,5 +190,108 @@ for i in range(1, h+1):
 print(rock_cnt, range_cnt)
 ```
 
+## 5. [21758 꿀 따기](https://www.acmicpc.net/problem/21758)
+![image](https://user-images.githubusercontent.com/44918665/133971200-852a5388-7821-4ae1-8bc3-b1047086a552.png)
+![image](https://user-images.githubusercontent.com/44918665/133971231-57c18997-0234-4d66-85e7-cb7128488a17.png)
+
+### 5.1. 문제유형
+- 누적합
+
+### 5.2. 풀이과정
+1. 누적합을 구한 후 꿀통의 위치를 기준으로 3가지 경우에 대해 각 10만번 연산을 수행하였다.
+2. 첫 번째는 꿀통이 오른쪽에 있는 경우
+    - 벌 한 마리는 가장 왼쪽에 위치
+4. 두 번째는 꿀통이 왼쪽에 있는 경우
+    - 벌 한마리는 가장 오른쪽에 위치
+6. 세 번째는 꿀통이 중간에 있는 경우
+    - 이 경우는 양 끝에 벌들이 위치한다.
+8. 누적합만 계산해 놓으면 2,3,4를 loop를 돌며 계산할 수 있으므로 O(N)에 해결할 수 있다.
+
+### 5.3. 소스코드
+```python
+from copy import deepcopy
+
+n=int(input())
+h=list(map(int, input().split()))
+s = deepcopy(h)
+answer=0
+
+for i in range(1, n):
+    s[i] += s[i-1]
+
+for i in range(1, n-1): # 오른쪽
+    answer = max(answer, 2*s[-1]-h[0]-h[i]-s[i])
+for i in range(1, n-1): # 왼쪽
+    answer = max(answer, s[-1]-h[-1]-h[i]+s[i-1])
+for i in range(1, n-1): # 중간
+    answer = max(answer, s[i]-h[0] + s[-1]-s[i-1]-h[-1])
+
+print(answer)
+```
+
+## 6. [2632 피자판매](https://www.acmicpc.net/problem/2632)
+![image](https://user-images.githubusercontent.com/44918665/133971771-696ff137-a1be-4fc2-94bf-c279c85d86d2.png)
+![image](https://user-images.githubusercontent.com/44918665/133971799-ed803a13-ce7e-490d-8c45-c2c4220a5f4f.png)
+
+### 6.1. 문제유형
+- 누적합
+
+### 6.2. 해결과정
+1. 누적합 결과를 key-value dictionary에 저장 후 경우의 수를 카운트한다.
+2. 두 피자의 0번째 누적합은 1이다. (한 쪽의 피자로만 줄 수 있는 경우 존재)
+3. 피자는 원판이므로, 0번째부터 n-1번째까지 돌며 가능한 피자 조각 경우를 카운트한다.
+4. A, B 피자 총합의 누적합 개수는 1개로 수정한다.
+    - 원판을 돌며 중복된 개수 예외처리
+5. A, B 개별로 피자 개수를 카운트 한 후, 합쳐서 target이 되는 경우를 카운트한다.
+6. 이 때, 경우의 수이므로 가능한 A의 개수 * 가능한 B의 개수로 누적해나간다.
+    - ex) 7을 만들 때, (A,B) = (4,3) 일 때, (4를 만드는 경우의 수)x(3을 만드는 경우의 수)로 계산되어야함
+
+### 6.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+target = int(input())
+m, n =map(int, input().split())
+A = [int(input()) for _ in range(m)]
+B = [int(input()) for _ in range(n)]
+
+A_sum, B_sum = [0]*2000001, [0]*2000001
+A_sum[0] = B_sum[0] = 1
+A_len, B_len = len(A), len(B)
+
+for i in range(A_len):
+    s = 0
+
+    for j in range(A_len):
+        s += A[(i+j)%m]
+
+        if s>target:
+            break
+        else:
+            A_sum[s]+=1
+
+for i in range(B_len):
+    s = 0
+    for j in range(B_len):
+        s += B[(i+j)%n]
+        if s>target:
+            break
+        else:
+            B_sum[s]+=1
+
+A_sum[sum(A)] = B_sum[sum(B)] = 1
+
+ans=0
+for i in range(target+1):
+    ans += (A_sum[i]*B_sum[target-i])
+print(ans)
+```
+
+### 6.4. 노트필기
+![KakaoTalk_20210920_162550061](https://user-images.githubusercontent.com/44918665/133972544-ffa9670d-4ced-4d09-b71d-6b7e7b52b279.png)
+
+- 참고한 블로그
+https://goodsosbva.tistory.com/81
 
 ## 9. 20159 동작 그만. 밑장 빼기냐?
