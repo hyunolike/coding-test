@@ -2,7 +2,7 @@
 
 1. [20438 출석체크](#1-20438-출석체크)
 2. [2015 수들의 합4](#2-2015-수들의-합4)
-3. [11660 구간 합 구하기 4](#3-11660-구간-합-구하기-4)
+3. [11660 구간 합 구하기 5](#3-11660-구간-합-구하기-5)
 4. [3020 개똥벌레](#4-3020-개똥벌레)
 5. [21758 꿀 따기](#5-21758-꿀-따기)
 6. [2632 피자 판매](#6-2632-피자-판매)
@@ -293,5 +293,97 @@ print(ans)
 
 - 참고한 블로그
 https://goodsosbva.tistory.com/81
+
+## 7. [14465 소가 길을 건너간 이유 5](https://www.acmicpc.net/problem/14465)
+![image](https://user-images.githubusercontent.com/44918665/134095810-4042bcb4-1adf-41d6-9e2f-177a6581b7cf.png)
+
+### 7.1. 문제유형
+- 누적합, 슬라이딩 윈도우
+
+### 7.2. 풀이과정
+1. 정상 신호등의 느적합 개수를 구한다.
+2. k개의 연속된 신호등을 구할 것이므로 i ~ i+k-1까지의 값을 계산한다.
+3. 2번 결과의 최대값을 구한다.
+4. k - 최대값 출력
+
+### 7.3. 소스코드
+```python
+from copy import deepcopy
+n,k,b = map(int, input().split())
+
+sign=[1]*(n+1)
+psum=[0]*(n+1)
+sign[0]=0
+
+for _ in range(b):
+    broken = int(input())
+    sign[broken]=0
+
+psum = deepcopy(sign)
+
+for i in range(1, n+1):
+    psum[i] += psum[i-1]
+
+answer=0
+for i in range(k, n+1):
+    temp = psum[i]-psum[i-k]
+    if answer < temp:
+        answer = temp
+print(k - answer)
+```
+
+## 8. [5549 행성 탐사](https://www.acmicpc.net/problem/5549)
+![image](https://user-images.githubusercontent.com/44918665/134096106-14f82841-95da-462d-a946-ac4a1927482b.png)
+![image](https://user-images.githubusercontent.com/44918665/134096126-e637c96a-209e-4972-8b9e-212cf3d7f123.png)
+
+### 8.1. 문제유형
+- 누적합
+- 비슷한 유형 : [11660 구간 합 구하기 5](https://www.acmicpc.net/problem/14465)
+
+### 8.2. 풀이과정
+1. 구간별 정글, 바다, 얼음에 대한 개수를 구하는 것이 목표
+2. 정글, 바다, 얼음에 대한 전체 누적합을 계산한다.
+3. i,j for문을 돌며 (i+1,j+1)값을 (i+1,j)+(i,j+1)-(i,j)값으로 갱신한다.
+4. (i,j)가 [정글,바다,얼음]일 경우 해당 누적합의 (i+1,j+1)값 개수를 증가시킨다.
+5. 각 구간별 정글, 바다, 얼음에 대한 누적합을 계산한다.
+6. a,b,c,d일 경우 answer=p[c][d]-p[a-1][d]-p[c][b-1]-p[a-1][b-1]
+
+### 8.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+k=int(input())
+graph = [list(map(str, input())) for _ in range(n)]
+
+J=[[0]*(m+1) for _ in range(n+1)]
+O=[[0]*(m+1) for _ in range(n+1)]
+I=[[0]*(m+1) for _ in range(n+1)]
+
+for i in range(n):
+    for j in range(m):
+        J[i+1][j+1] = J[i+1][j]+J[i][j+1]-J[i][j]
+        O[i+1][j+1] = O[i+1][j]+O[i][j+1]-O[i][j]
+        I[i+1][j+1] = I[i+1][j]+I[i][j+1]-I[i][j]
+        
+        if graph[i][j]=='J':
+            J[i+1][j+1]+=1
+        elif graph[i][j]=='O':
+            O[i+1][j+1]+=1
+        elif graph[i][j]=='I':
+            I[i+1][j+1]+=1
+
+for _ in range(k):
+    a,b,c,d = map(int, input().split())
+    cnt_J,cnt_O,cnt_I = 0,0,0
+
+    cnt_J = J[c][d]-J[a-1][d]-J[c][b-1]+J[a-1][b-1]
+    cnt_O = O[c][d]-O[a-1][d]-O[c][b-1]+O[a-1][b-1]
+    cnt_I = I[c][d]-I[a-1][d]-I[c][b-1]+I[a-1][b-1]
+    print(cnt_J, cnt_O, cnt_I)
+
+```
+
 
 ## 9. 20159 동작 그만. 밑장 빼기냐?
