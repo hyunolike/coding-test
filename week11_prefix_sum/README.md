@@ -431,8 +431,8 @@ print(answer)
 ![image](https://user-images.githubusercontent.com/44918665/134347732-7e05fb6a-fc96-4fa6-98ec-176e25b2bd84.png)
 
 - 참고자료
-https://gjdms611.github.io/posts/BOJ-20159-%EB%8F%99%EC%9E%91%EA%B7%B8%EB%A7%8C%EB%B0%91%EC%9E%A5%EB%B9%BC%EA%B8%B0%EB%83%90/
-https://data-make.tistory.com/594
+1. https://gjdms611.github.io/posts/BOJ-20159-%EB%8F%99%EC%9E%91%EA%B7%B8%EB%A7%8C%EB%B0%91%EC%9E%A5%EB%B9%BC%EA%B8%B0%EB%83%90/
+2. https://data-make.tistory.com/594
 
 ## 10. [21318 피아노 체조](https://www.acmicpc.net/problem/21318)
 ![image](https://user-images.githubusercontent.com/44918665/134347918-ccd2e2c0-6b67-4a04-84c0-76f4ce9560d9.png)
