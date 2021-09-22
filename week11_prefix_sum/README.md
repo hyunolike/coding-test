@@ -301,7 +301,7 @@ https://goodsosbva.tistory.com/81
 - 누적합, 슬라이딩 윈도우
 
 ### 7.2. 풀이과정
-1. 정상 신호등의 느적합 개수를 구한다.
+1. 정상 신호등의 누적합 개수를 구한다.
 2. k개의 연속된 신호등을 구할 것이므로 i ~ i+k-1까지의 값을 계산한다.
 3. 2번 결과의 최대값을 구한다.
 4. k - 최대값 출력
@@ -385,5 +385,92 @@ for _ in range(k):
 
 ```
 
+## 9. [20159 동작 그만. 밑장 빼기냐?](https://www.acmicpc.net/problem/20159)
+![image](https://user-images.githubusercontent.com/44918665/134346925-8b0a3851-89a2-435e-bb42-41a8405b0c59.png)
+![image](https://user-images.githubusercontent.com/44918665/134346966-0a63cefb-4fea-4f9c-93e8-f78f352077d5.png)
 
-## 9. 20159 동작 그만. 밑장 빼기냐?
+### 9.1. 문제유형
+- 누적합
+
+### 9.2. 풀이과정
+1. 밑장 빼기는 나, 상대방에게 주는 경우와 하지 않는 경우가 있다.
+2. 내 차례에 밑장을 빼는 경우, 상대방 차례에 밑장을 빼는 경우를 고려한다.
+3. 예를 들어 1,2,3,4,5,6,7,8,9,10을 대상으로 계산 후 점화식을 도출해 볼 수 있다.
+4. 점화식을 도출할 때, 미리 짝수/홀수 인덱스에 대한 누적합을 계산한 후 점화식에 활용한다.
+
+### 9.3. 소스코드
+```python
+n = int(input())
+card = list(map(int, input().split()))
+
+mid = n//2
+odd, even = card[0::2], card[1::2]
+
+answer = sum(odd)
+
+for i in range(1, mid):
+    odd[i] += odd[i-1]
+    even[i] += even[i-1]
+
+psum = [[0]+even, [0]+odd]
+
+for i in range(1, n+1):
+    idx = i//2+1
+    if i%2 == 0:
+        res = psum[1][idx-1]+(psum[0][mid-1]-psum[0][idx-2])
+    else:
+        res = psum[1][idx-1]+(psum[0][mid]-psum[0][idx-1])
+    
+    answer = max(answer, res)
+    
+print(answer)
+```
+
+### 9.4. 노트필기
+![image](https://user-images.githubusercontent.com/44918665/134347693-62fa5a99-c5d2-46a7-932d-1b1185c990fa.png)
+![image](https://user-images.githubusercontent.com/44918665/134347732-7e05fb6a-fc96-4fa6-98ec-176e25b2bd84.png)
+
+- 참고자료
+1. https://gjdms611.github.io/posts/BOJ-20159-%EB%8F%99%EC%9E%91%EA%B7%B8%EB%A7%8C%EB%B0%91%EC%9E%A5%EB%B9%BC%EA%B8%B0%EB%83%90/
+2. https://data-make.tistory.com/594
+
+## 10. [21318 피아노 체조](https://www.acmicpc.net/problem/21318)
+![image](https://user-images.githubusercontent.com/44918665/134347918-ccd2e2c0-6b67-4a04-84c0-76f4ce9560d9.png)
+![image](https://user-images.githubusercontent.com/44918665/134347948-213feccc-ac76-4865-8267-8cb7b0eeb120.png)
+
+### 10.1. 문제유형
+- 누적합
+
+### 10.2. 풀이과정
+1. 각 인덱스별 실패한 횟수를 계산한다.
+2. 실패한 횟수의 누적합 S를 계산한다.
+3. x, y 구간별 누적합을 S를 활용해 계산한다.
+4. 만약 마지막 곡 y와 누적합과 그 전 y-1 누적합이 다르다면 1을 감소시킨다.
+    - 마지막 곡은 항상 성공하기 때문
+
+### 10.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+play = list(map(int, input().split()))
+play = [0]+play
+fail = [0]*(n+1) # 실수한 개수 누적합
+
+for i in range(n):
+    if play[i] > play[i+1]:
+        fail[i] += 1
+
+for i in range(1, len(fail)):
+    fail[i] += fail[i-1]
+
+test = int(input())
+for _ in range(test):
+    x, y = map(int, input().split())
+    answer = fail[y]-fail[x-1]
+    if fail[y] != fail[y-1]:
+        answer -= 1
+    print(answer)
+```
+
