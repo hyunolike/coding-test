@@ -2,8 +2,8 @@
 
 1. [1588 수열](#1-1588-수열)
 2. [17829 222 풀링](#2-17829-222-풀링)
-3. 2447 별 찍기 10
-4. 2448 별 찍기 11
+3. [2447 별 찍기 10](#3-2447-별-찍기-10)
+4. [2448 별 찍기 11](#4-2448-별-찍기-11)
 5. 2339 석판 자르기
 6. 1074 Z
 7. 2630 색종이 만들기
@@ -114,12 +114,79 @@ def solve():
 print(solve())
 ```
 
-## 3. 2447 별 찍기 - 10
+## 3. 2447 별 찍기 10
 ![image](https://user-images.githubusercontent.com/44918665/134821686-f2458ee9-f3b4-400e-98b6-2b9fc95e21bf.png)
 ![image](https://user-images.githubusercontent.com/44918665/134821691-504d1d69-06ba-4e84-9029-430ec0887f8b.png)
 
 ### 3.1. 문제유형
-- 분할정복
+- 분할정복, 재귀
 
 ### 3.2. 해결과정
-- 
+1. 최소 단위(3x3)를 설정하고 반복해서 찍어나간다.
+2. 첫 행과 마지막 행은 찍히는 구조가 같다.
+3. 가운데 행은 최소 단위 + 공백 + 최소단위로 구성된다.
+
+### 3.3. 소스코드
+```python
+import sys
+sys.setrecursionlimit(10**6)
+
+
+def print_star(length):
+    if length == 1:
+        return ['*']
+    
+    stars = print_star(length//3)
+    tmp = []
+
+    for s in stars:
+        tmp.append(s*3)
+    for s in stars:
+        tmp.append(s+' '*(length//3)+s)
+    for s in stars:
+        tmp.append(s*3)
+    
+    return tmp
+
+n = int(input())
+for s in print_star(n):
+    print(s)
+```
+
+## 4. 2448 별 찍기 11
+![image](https://user-images.githubusercontent.com/44918665/134824593-342475e5-93ab-4ffb-a0a6-64d246ff152b.png)
+
+### 4.1. 문제유형
+- 분할정복, 재귀
+
+### 4.2. 해결과정
+1. n = 3*2^k이므로 별을 찍기 위해 k를 계산해야한다.
+2. k를 계산한 후 3^k만큼 삼각형을 찍는다.
+
+### 4.3. 소스코드
+```python
+n=int(input())
+star = ['  *  ', ' * * ', '*****']
+n = n//3
+
+cnt = 0
+while n > 1:
+    n = n//2
+    cnt += 1
+
+def print_star(star):
+    length = len(star)
+    for i in range(length):
+        star.append(star[i] + ' ' + star[i])
+        star[i] = ' '*length + star[i] + ' '*length
+    
+    return star
+
+for i in range(cnt):
+    star = print_star(star)
+
+for s in star:
+    print(s)
+```
+
+
