@@ -1,7 +1,6 @@
 import sys
 sys.setrecursionlimit(10**6)
 
-
 def print_star(length):
     if length == 1:
         return ['*']
