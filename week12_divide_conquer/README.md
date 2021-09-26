@@ -113,3 +113,13 @@ def solve():
 
 print(solve())
 ```
+
+## 3. 2447 별 찍기 - 10
+![image](https://user-images.githubusercontent.com/44918665/134821686-f2458ee9-f3b4-400e-98b6-2b9fc95e21bf.png)
+![image](https://user-images.githubusercontent.com/44918665/134821691-504d1d69-06ba-4e84-9029-430ec0887f8b.png)
+
+### 3.1. 문제유형
+- 분할정복
+
+### 3.2. 해결과정
+- 
