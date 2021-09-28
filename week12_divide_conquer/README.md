@@ -289,3 +289,41 @@ check(0,0,n)
 print(answer.count(0))
 print(answer.count(1))
 ```
+
+## 8. [4256 트리](https://www.acmicpc.net/problem/4256)
+![image](https://user-images.githubusercontent.com/44918665/135073469-df6d27be-1610-41fc-bd00-5dace64ea45a.png)
+![image](https://user-images.githubusercontent.com/44918665/135073555-14b815f7-8cda-4ac6-9555-fc0d9670839a.png)
+![image](https://user-images.githubusercontent.com/44918665/135073585-d37776c1-2bc6-483d-b279-7e2f5c438503.png)
+
+### 8.1. 문제유형
+- 분할정복, 재귀, 트리
+
+### 8.2. 해결과정
+- 아래 소스코드는 블로그를 참고하여 해결했다.
+![image](https://user-images.githubusercontent.com/44918665/135073748-149aa2ea-442b-4936-bf61-1a79dc02f074.png)
+- 인사이트는 전위순회 노드를 기준으로 중위순회 시, 왼쪽서브트리와 오른쪽서브트리로 나뉜다는 것이다.
+- 따라서 왼쪽서브트리를 start~i까지, 오른쪽서브트리를 i+1~end까지 재귀적으로 탐색한다.
+- 후위 순회 결과를 출력할 것이므로 마지막에 preorder 노드를 출력한다.
+
+### 8.3. 소스코드
+- https://jjangsungwon.tistory.com/94
+```python
+import sys
+input = sys.stdin.readline
+
+def solve(root, start, end):
+    for i in range(start, end):
+        if inorder[i] == preorder[root]:
+            solve(root+1, start, i)
+            solve(root+i+1-start, i+1, end)
+            print(preorder[root], end=" ")
+
+t = int(sys.stdin.readline())
+for _ in range(t):
+    n = int(input())
+    preorder = list(map(int, input().split()))
+    inorder = list(map(int, input().split()))
+    solve(0, 0, n)
+    print("")
+```
+
