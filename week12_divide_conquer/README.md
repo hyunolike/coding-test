@@ -9,7 +9,7 @@
 7. [2630 색종이 만들기](#7-2630-색종이-만들기)
 8. [4256 트리](#8-4256-트리)
 9. 5904 moo 게임
-10. 2374 같은수로 만들기
+10. [2374 같은수로 만들기](#10-2374-같은수로-만들기)
 
 ## 1. [1588 수열](https://www.acmicpc.net/problem/1588)
 ![image](https://user-images.githubusercontent.com/44918665/134519475-35939059-20f0-4c39-87d9-e4928ab590d4.png)
@@ -327,3 +327,51 @@ for _ in range(t):
     print("")
 ```
 
+## 10. [2374 같은 수로 만들기](https://www.acmicpc.net/problem/2374)
+![image](https://user-images.githubusercontent.com/44918665/135258873-52ee9f21-ef94-42d2-bd15-e19b7d28bc75.png)
+
+### 10.1. 문제유형
+- 분할정복
+- 자료구조
+- 그리디 알고리즘
+- 스택
+
+### 10.2. 해결과정
+1. 값을 1개씩 입력받으며 현재까지의 가장 큰 값의 차이를 저장한다.
+2. stack이 비어있다면 구한 차이값을 삽입한다.
+3. stack이 차 있고, top 값이 입력받은 값보다 작다면 그 차이를 최종값 cnt에 더하고 pop 후 입력값 삽입
+4. stack이 차 있고, top 값이 입력받은 값보다 크다면 차이는 더하지 않고, stack을 pop하고 입력값 삽입
+5. stack에 들어 있는 값을 하나씩 꺼내고, 최종값 cnt에 최대값과 꺼낸 값의 차를 더해 나간다.
+
+### 10.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+cnt = 0
+stack = []
+
+max_num = 0
+
+for i in range(n):
+    t = int(input())
+    max_num = max(max_num, t)
+    if not stack:
+        stack.append(t)
+    else:
+        if stack[-1] < t:
+            cnt += t - stack[-1]
+            stack.pop()
+            stack.append(t)
+        elif stack[-1] > t:
+            stack.pop()
+            stack.append(t)
+    
+while stack:
+    num = stack[-1]
+    stack.pop()
+    cnt += max_num - num
+    
+print(cnt)
+```
