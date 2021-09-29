@@ -7,9 +7,17 @@ def divide (start_row, start_col, finish_row, finish_col, horizonal):
             if arr[i][j] == 1:
                 trash += 1
                 if horizonal:
-                    divide_complete += divide(start_row,start_col, i,finish_col, not(horizonal)) * divide(i+1,start_col,finish_row,finish_col,not(horizonal))
+                    for t in range(start_col,finish_col):
+                        if arr[i][t]==2:
+                            break
+                    else:
+                        divide_complete += divide(start_row,start_col, i,finish_col, not(horizonal)) * divide(i+1,start_col,finish_row,finish_col,not(horizonal))
                 else:
-                    divide_complete += divide(start_row,start_col, finish_row,j,not(horizonal)) * divide(start_row,j+1,finish_row,finish_col, not(horizonal))
+                    for t in range(start_row,finish_row):
+                        if arr[t][j] == 2:
+                            break
+                    else:
+                        divide_complete += divide(start_row,start_col, finish_row,j,not(horizonal)) * divide(start_row,j+1,finish_row,finish_col, not(horizonal))
             elif arr[i][j] == 2:
                 jewel+=1
     if trash == 0:
@@ -35,9 +43,10 @@ for i in range(n):
             jewel += 1
 
 if trash == 0: 
-    
-    
-    print(-1)
+    if jewel == 1:
+        print(0)
+    else:
+        print(-1)
     sys.exit()
 cnt = divide(0,0,n,n,0) + divide(0,0,n,n,1)
 if cnt :
