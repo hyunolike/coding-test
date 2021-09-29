@@ -83,4 +83,4 @@ else:
 
 
 
-![KakaoTalk_20210929_233119676](https://user-images.githubusercontent.com/69501435/135289829-ddc9f30e-563e-4ea4-9f82-886c80c06199.jpg)
+![KakaoTalk_20210929_233119676](https://user-images.githubusercontent.com/69501435/135290003-77a90f7b-8e91-4c44-ae96-e3a4900e8c94.jpg)
