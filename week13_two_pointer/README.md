@@ -60,8 +60,44 @@ while True:
 print(answer)
 ```
 
-## 2. 7453 합이 0인 네 정수
+## 2. [7453 합이 0인 네 정수](https://www.acmicpc.net/problem/7453)
+![image](https://user-images.githubusercontent.com/44918665/135942811-701f2b92-f3fc-45d4-9963-d1928034736f.png)
+![image](https://user-images.githubusercontent.com/44918665/135942834-54e993aa-7dc3-498e-a8e9-397f42cb36b5.png)
+
+### 2.1. 문제유형
+- 두 포인터
+
+### 2.2. 해결과정
+1. sum(a,b,c,d) = 0이면 sum(a,b) + sum(c,d) = 0이다.
+2. 따라서 a+b값을 구한 후, -(c+d)과 같은 쌍의 개수를 찾는다.
+
+### 2.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n=int(input())
+A,B,C,D=[],[],[],[]
+for _ in range(n):
+    a,b,c,d = map(int,input().split())
+    A.append(a); B.append(b); C.append(c); D.append(d)
+
+answer = 0
+AB,CD = {},{}
+for a in A:
+    for b in B:
+        # 딕셔너리 get: key에 해당하는 value 리턴, 없을 시 None
+        # get(key, default): 만약 리턴 시 None이 아닌 default 반환
+        AB[a+b] = AB.get(a+b, 0)+1
+for c in C:
+    for d in D:
+        # 현재 -(c,d)에 해당하는 (a,b)가 있다면 카운트
+        answer += AB.get(-(c+d), 0)
+print(answer)
+```
+
 ## 3. 16161 가장 긴 증가하는 팰린드롬 부분수열
+
 ## 4. 20922 겹치는 건 싫어
 ## 5. 2003 수들의 합 2
 ## 6. 1806 부분합
