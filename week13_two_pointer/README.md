@@ -1,9 +1,9 @@
 # Two Pointer
 
 1. [22114 창영이와 점프](#1-22114-창영이와-점프)
-2. 7453 합이 0인 네 정수
+2. [7453 합이 0인 네 정수](#2-7453-합이-0인-네-정수)
 3. 16161 가장 긴 증가하는 팰린드롬 부분수열
-4. 20922 겹치는 건 싫어
+4. [20922 겹치는 건 싫어](#4-20922-겹치는-건-싫어)
 5. 2003 수들의 합 2
 6. 1806 부분합
 7. 22862 가장 긴 짝수 연속한 부분 수열(large)
@@ -98,7 +98,50 @@ print(answer)
 
 ## 3. 16161 가장 긴 증가하는 팰린드롬 부분수열
 
-## 4. 20922 겹치는 건 싫어
+## 4. [20922 겹치는 건 싫어](https://www.acmicpc.net/20922)
+![image](https://user-images.githubusercontent.com/44918665/135946000-386b7e86-c999-4532-821c-1aeab2544eca.png)
+![image](https://user-images.githubusercontent.com/44918665/135946019-12b5f435-9d72-4e9c-8c83-ea0e90a56e89.png)
+
+### 4.1. 문제유형
+- 두 포인터
+
+### 4.2. 해결과정
+1. 중복된 개수를 카운트하는 check[0] * 100001배열을 선언한다.
+2. check[a[r]] < k라면 r++, cnt++, check[a[r]]++
+3. k보다 작다면, check[a[r]]>=k일 동안 check[a[l]],l++,cnt--
+4. 3번 후 다시 r++, cnt++, check[a[r]]++
+5. loop마다 answer에 최대값을 누적해나간다.
+
+### 4.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n,k=map(int,input().split())
+a=list(map(int,input().split()))
+l,r=0,0
+answer,cnt=0,0
+check=[0]*100001
+
+while True:
+    if l>=n or r>=n:
+        break
+    if check[a[r]]<k:
+        check[a[r]]+=1
+        cnt+=1
+        r+=1
+    else:
+        while check[a[r]]>=k:
+            check[a[l]]-=1
+            l+=1
+            cnt-=1
+        check[a[r]]+=1
+        cnt+=1
+        r+=1
+    answer = max(answer, cnt)
+print(answer)
+```
+
 ## 5. 2003 수들의 합 2
 ## 6. 1806 부분합
 ## 7. 22862 가장 긴 짝수 연속한 부분 수열(large)
