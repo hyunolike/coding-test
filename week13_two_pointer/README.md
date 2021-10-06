@@ -4,12 +4,12 @@
 2. [7453 합이 0인 네 정수](#2-7453-합이-0인-네-정수)
 3. 16161 가장 긴 증가하는 팰린드롬 부분수열
 4. [20922 겹치는 건 싫어](#4-20922-겹치는-건-싫어)
-5. 2003 수들의 합 2
-6. 1806 부분합
-7. 22862 가장 긴 짝수 연속한 부분 수열(large)
-8. 22945 팀 빌딩
-9. 2531 회전 초밥
-10. 2230 수 고르기
+5. [2003 수들의 합 2](#5-2003-수들의-합-2)
+6. [1806 부분합](#6-1806-부분합)
+7. [22862 가장 긴 짝수 연속한 부분 수열(large)](#7-22862-가장-긴-짝수-연속한-부분-수열(large))
+8. [22945 팀 빌딩](#8-22945-팀-빌딩)
+9. [2531 회전 초밥](#9-2531-회전-초밥)
+10. [2230 수 고르기](#10-2230-수-고르기)
 
 ## 1. [22114 창영이와 점프](https://www.acmicpc.net/problem/22114)
 ![image](https://user-images.githubusercontent.com/44918665/135942246-1b2554eb-c7ff-4dbb-bc63-bd5598c76491.png)
@@ -142,7 +142,7 @@ while True:
 print(answer)
 ```
 
-## 5. 2003 수들의 합 2
+## 5. [2003 수들의 합 2](https:/www.acmicpc.net/problem/2003)
 ![image](https://user-images.githubusercontent.com/44918665/136126212-2c501993-ac0c-4b26-ab84-bdecf30b88ae.png)
 
 ### 5.1. 문제유형
@@ -191,7 +191,7 @@ for i in range(len(a)):
 print(answer)
 ```
 
-## 6. 1806 부분합
+## 6. [1806 부분합](https://www.acmicpc.net/1806)
 ![image](https://user-images.githubusercontent.com/44918665/136126816-7651c57e-51d1-4bdb-b2c3-89fa5c00d76e.png)
 
 ### 6.1. 문제유형
@@ -228,7 +228,7 @@ if answer==1e8:
 print(answer)
 ```
 
-## 7. 22862 가장 긴 짝수 연속한 부분 수열(large)
+## 7. [22862 가장 긴 짝수 연속한 부분 수열(large)](https://www.acmicpc.net/22862)
 ![image](https://user-images.githubusercontent.com/44918665/136127110-68104bd2-6f16-4564-93e7-d9c311d7f00c.png)
 ![image](https://user-images.githubusercontent.com/44918665/136127127-b9f8046e-eadc-4a9b-86ca-3e1a1e4fc954.png)
 
@@ -273,8 +273,44 @@ while True:
             r+=1
     answer=max(answer,cnt)
 print(answer)
-``
+```
 
-## 8. 22945 팀 빌딩
+## 8. [22945 팀 빌딩](https://www.acmicpc.net/problem/22945)
+![image](https://user-images.githubusercontent.com/44918665/136135379-5b742302-1c16-41e8-a541-e8c5954c7ebe.png)
+![image](https://user-images.githubusercontent.com/44918665/136135402-f483b95d-124d-4b42-876f-3b04eff05e52.png)
+
+### 8.1. 문제유형
+- 두 포인터
+
+### 8.2. 해결과정
+1. 최대가 되려면 두 포인터 간 거리가 최대값, 두 포인터 값이 최대값이어야한다.
+2. 따라서 l,r=0,n-1부터 값을 계산해나간다.
+3. dev[l] > dev[r]라면 r--, 반대라면 l++를 반복하며 능력치 계산.
+4. l >= r이라면 1-3 loop를 종료한다.
+
+### 8.3. 소스코드
+```python
+n=int(input())
+dev=list(map(int,input().split()))
+answer,total=0,0
+l,r=0,n-1
+
+while True:
+    if l>=r:
+        break
+    people=r-l-1
+    ability=min(dev[l],dev[r])
+    total=people*ability
+    answer=max(answer,total)
+    
+    if dev[l]>dev[r]:
+        r-=1
+    else:
+        l+=1
+print(answer)
+```
+
 ## 9. 2531 회전 초밥
+
+
 ## 10. 2230 수 고르기
