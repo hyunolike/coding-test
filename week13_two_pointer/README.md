@@ -353,3 +353,38 @@ print(answer)
 ```
 
 ## 10. 2230 수 고르기
+![image](https://user-images.githubusercontent.com/44918665/136143369-8e5eaae6-13e1-4226-8943-973b8cfb3144.png)
+![image](https://user-images.githubusercontent.com/44918665/136143382-52ced501-1499-45eb-8af3-91f0428fe6ce.png)
+
+### 10.1. 문제유형
+- 두 포인터
+- 정렬
+
+### 10.2. 해결과정
+1. l,r 선택 시 가장 차이가 작은 두 값을 골라야 하므로 정렬한다.
+2. l,r=0,1 시작 후 diff를 계산한 후 m보다 큰 지 판단한다.
+3. diff >= m 이라면, answer=min(answer,diff), l++
+4. diff < m 이라면, r++
+
+### 10.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+
+n,m=map(int,input().split())
+a=list(int(input()) for _ in range(n))
+a.sort()
+answer=2e9
+l,r=0,1
+
+while True:
+    if l>=n or r>=n:
+        break
+    diff=a[r]-a[l]
+    if diff>=m:
+        answer=min(answer,diff)
+        l+=1
+    else:
+        r+=1
+print(answer)
+```
