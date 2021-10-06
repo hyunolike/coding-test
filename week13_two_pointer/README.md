@@ -236,7 +236,44 @@ print(answer)
 - 두 포인터
 
 ### 7.2. 해결과정
+1. s[r]%2==0이라면 cnt++, r++를 수행한다.
+2. s[r]%2==1이라면 홀수이므로, 삭제 가능한지 불가능한 지 if 분기.
+3. 삭제가 가능하다면 r++, del_cnt--
+4. 삭제가 불가능하다면 while s[l]%2==0일동안 cnt--,l++
+5. l을 증가시키며 홀수에 도달했다면 cnt--,l++
+6. 홀수인 것을 추가한다. cnt++, r++
+7. 1-6과정 수행 후 answer=max(answer,cnt)
 
+### 7.3. 소스코드
+```python
+n,k=map(int,input().split())
+s=list(map(int,input().split()))
+answer,cnt=0,0
+del_cnt=k
+l,r=0,0
+
+while True:
+    if l>=n or r>=n:
+        break
+    if s[r]%2==0: #짝수
+        cnt += 1
+        r+=1
+    else: #홀수
+        if del_cnt: # 삭제 가능
+            r+=1
+            del_cnt-=1
+        else: # 삭제 불가능
+            while s[l]%2==0: #짝수일동안
+                cnt-=1
+                l+=1
+            if s[l]%2==1: # 홀수인것삭제
+                cnt-=1
+                l+=1
+            cnt+=1 # 홀수인것추가
+            r+=1
+    answer=max(answer,cnt)
+print(answer)
+``
 
 ## 8. 22945 팀 빌딩
 ## 9. 2531 회전 초밥
