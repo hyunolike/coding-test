@@ -143,8 +143,101 @@ print(answer)
 ```
 
 ## 5. 2003 수들의 합 2
+![image](https://user-images.githubusercontent.com/44918665/136126212-2c501993-ac0c-4b26-ab84-bdecf30b88ae.png)
+
+### 5.1. 문제유형
+- 두 포인터
+
+### 5.2. 해결과정
+1. total+a[r], r++를 반복한다.
+2. total >= m이라면 total>=m일 동안 total-a[l], l++ 수행
+3. l >= n이거나 r >= n이면 종료한다.
+
+### 5.3. 소스코드
+```python
+# version1
+n, m=map(int,input().split())
+a=list(map(int,input().split()))
+l,r=0,0
+answer=0
+total=0
+
+while True:
+    if l>=n or r>=n:
+        break
+    total += a[r]
+    r+=1
+    while total>=m:
+        if total==m:
+            answer+=1
+        total-=a[l]
+        l+=1
+print(answer)
+
+## version2
+n, m = map(int, input().split())
+a = list(map(int, input().split()))
+answer = 0
+
+# m보다 커지면 left를 하나 증가, 작으면 right 하나 증가
+left,total=0,0
+for i in range(len(a)):
+    total+=a[i]
+    while total>=m:
+        if total==m:
+            answer += 1
+        total -= a[left]
+        left+=1
+print(answer)
+```
+
 ## 6. 1806 부분합
+![image](https://user-images.githubusercontent.com/44918665/136126816-7651c57e-51d1-4bdb-b2c3-89fa5c00d76e.png)
+
+### 6.1. 문제유형
+- 두 포인터
+
+### 6.2. 해결과정
+1. total+=s[r], length++, r++를 수행한다.
+2. total >= m이라면, answer=min(answer, length)를 수행하고 total-=s[l], length--, l++ 수행
+3. 만약 answer값이 초기값 그대로라면 answer=0
+
+### 6.3. 소스코드
+```python
+#version1
+n,m=map(int,input().split())
+s=list(map(int,input().split()))
+answer=1e8
+l,r=0,0
+total=0
+length=0
+while True:
+    if l>=n or r>=n:
+        break
+    total+=s[r]
+    length+=1
+    r+=1
+    while total >= m:
+        if total >= m:
+            answer = min(answer, length)
+        total -= s[l]
+        length-=1
+        l+=1
+if answer==1e8:
+    answer=0
+print(answer)
+```
+
 ## 7. 22862 가장 긴 짝수 연속한 부분 수열(large)
+![image](https://user-images.githubusercontent.com/44918665/136127110-68104bd2-6f16-4564-93e7-d9c311d7f00c.png)
+![image](https://user-images.githubusercontent.com/44918665/136127127-b9f8046e-eadc-4a9b-86ca-3e1a1e4fc954.png)
+
+### 7.1. 문제유형
+- 두 포인터
+
+### 7.2. 해결과정
+
+
 ## 8. 22945 팀 빌딩
 ## 9. 2531 회전 초밥
 ## 10. 2230 수 고르기
