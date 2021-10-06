@@ -311,6 +311,45 @@ print(answer)
 ```
 
 ## 9. 2531 회전 초밥
+![image](https://user-images.githubusercontent.com/44918665/136140473-f8c03311-faef-4058-ba95-7b8f1dc4a51c.png)
+![image](https://user-images.githubusercontent.com/44918665/136140499-08c2cf10-ebce-4181-9c83-908c1a897331.png)
 
+### 9.1. 문제유형
+- 두 포인터
+
+### 9.2. 해결과정
+1. 스시판이 돌아가므로 원순열을 고려한 idx=i%n, 최대값은 n+k-1
+2. 용량이 k인 접시 위에 하나씩 스시 추가하며 cnt++
+3. 접시가 꽉 찼을 때, 쿠폰 c가 접시에 없다면 answer=max(answer,cnt+1)
+4. 쿠폰 c가 접시에 있다면 answer=max(answer,cnt)
+5. 3,4번 후 가장 먼저 들어온 스시 제거. 제거한 스시가 접시에 또 있다면 pass. 없다면 cnt--
+6. 추가할 스시가 접시에 없다면 추가 후 cnt++
+
+### 9.3. 소스코드
+```python
+import sys
+input = sys.stdin.readline
+from collections import deque
+
+n,d,k,c=map(int,input().split())
+susi=list(int(input()) for _ in range(n))
+answer,cnt=0,0
+q=deque()
+
+for i in range(n+k):
+    idx=i%n
+    if len(q)==k:
+        if c not in q:
+            answer=max(answer,cnt+1)
+        else:
+            answer=max(answer,cnt)
+        remov=q.popleft()
+        if remov not in q:
+            cnt-=1
+    if susi[idx] not in q:
+        cnt+=1
+    q.append(susi[idx])
+print(answer)
+```
 
 ## 10. 2230 수 고르기
