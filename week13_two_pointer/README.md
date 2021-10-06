@@ -204,27 +204,24 @@ print(answer)
 
 ### 6.3. 소스코드
 ```python
-#version1
+import sys
+input = sys.stdin.readline
+
 n,m=map(int,input().split())
-s=list(map(int,input().split()))
-answer=1e8
-l,r=0,0
-total=0
-length=0
+a=list(int(input()) for _ in range(n))
+a.sort()
+answer=2e9
+l,r=0,1
+
 while True:
     if l>=n or r>=n:
         break
-    total+=s[r]
-    length+=1
-    r+=1
-    while total >= m:
-        if total >= m:
-            answer = min(answer, length)
-        total -= s[l]
-        length-=1
+    diff=a[r]-a[l]
+    if diff>=m:
+        answer=min(answer,diff)
         l+=1
-if answer==1e8:
-    answer=0
+    else:
+        r+=1
 print(answer)
 ```
 
