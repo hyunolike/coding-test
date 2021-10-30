@@ -29,4 +29,30 @@ for i in range(ord('a'), ord('z')+1):
 print(' '.join(map(str, answer)))
 ```
 
-## 2. 
+## 2. [1152 단어의 개수](https://www.acmicpc.net/problem/1152)
+![image](https://user-images.githubusercontent.com/44918665/139561001-4b3510c7-9f28-4a20-918c-6102abdd8d10.png)
+
+### 2.1. 해결과정
+- list(input().split())함수를 이용해 input을 받고, 리스트 개수를 출력한다.
+
+### 2.2. 소스코드
+```
+ch=list(input().split())
+print(len(ch))
+```
+
+## 3. [1157 단어 공부](https://www.acmicpc.net/problem/1157)
+![image](https://user-images.githubusercontent.com/44918665/139561068-2a0f3011-b18d-4c02-9816-a50b2981fd66.png)
+
+### 3.1. 해결과정
+
+
+## 4. [11718 그대로 출력하기](https://www.acmicpc.net/problem/11718)
+## 5. [11720 숫자의 합](https://www.acmicpc.net/problem/11720)
+## 6. [11721 열 개씩 끊어 출력하기](https://www.acmicpc.net/problem/11721)
+## 7. [1316 그룹 단어 체커](https://www.acmicpc.net/problem/1316)
+## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
+## 9. [8958 OX퀴즈](https://www.acmicpc.net/problem/8958)
+## 10. [9012 괄호](https://www.acmicpc.net/problem/9012)
+
+
