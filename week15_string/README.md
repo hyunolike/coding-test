@@ -11,7 +11,7 @@
 9. [8958 OX퀴즈](#9-8958-OX퀴즈)
 10. [9012 괄호](#10-9012-괄호)
 
-## 1. [10809 알파벳 찾기](www.acmicpc.net/problem/10809)
+## 1. [10809 알파벳 찾기](https://www.acmicpc.net/problem/10809)
 ![image](https://user-images.githubusercontent.com/44918665/139560846-5df89106-465c-4c97-a691-63dc2330505e.png)
 
 ### 1.1. 해결과정
