@@ -127,9 +127,21 @@ print(sum(num))
 3. 남아 있는 문자를 출력한다.
 
 ## 7. [1316 그룹 단어 체커](https://www.acmicpc.net/problem/1316)
+![image](https://user-images.githubusercontent.com/44918665/139605144-15a7089e-1f7d-455c-948a-8f52d35665d4.png)
 
+### 7.1. 해결과정
+1. 단어를 입력받고, 이미 나온 알파벳을 저장하는 set을 생성한다.
+2. i번째부터 i-1번째가 다른 값일 경우 space에 word[i]가 있는지 확인한다.
+3. 이미 set에 있는 단어라면 flag를 False로 변경하고 break
+4. set에 없는 단어라면 set에 추가한다.
+5. flag가 True라면 개수를 1 증가시킨다.
+
+- 1번째부터 len(word)까지 word[i] vs word[i-1]로 비교해야 하는 이유
+- 0번째부터 len(word)-1까지 word[i] vs word[i+1]일 경우, i+1번째가 이미 set에 등장했던 문자일 수 있기 때문이다.
 
 ## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
+
+
 ## 9. [8958 OX퀴즈](https://www.acmicpc.net/problem/8958)
 ## 10. [9012 괄호](https://www.acmicpc.net/problem/9012)
 
