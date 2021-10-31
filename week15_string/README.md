@@ -20,7 +20,7 @@
 3. 단어 word에 대한 알파벳 인덱스는 str.find()함수를 사용한다.
 
 ### 1.2. 소스코드
-```
+```python
 word=input()
 answer=[]
 for i in range(ord('a'), ord('z')+1):
@@ -36,7 +36,7 @@ print(' '.join(map(str, answer)))
 - list(input().split())함수를 이용해 input을 받고, 리스트 개수를 출력한다.
 
 ### 2.2. 소스코드
-```
+```python
 ch=list(input().split())
 print(len(ch))
 ```
@@ -52,7 +52,7 @@ print(len(ch))
 5. 최대값이 1개라면, 최대값을 갖는 index에 해당하는 문자를 출력한다.
 
 ### 3.2. 소스코드
-```
+```python
 # https://www.byfuls.com/programming/read?id=49
 inputData = input().upper()
 searchKeys = list(set(inputData))
