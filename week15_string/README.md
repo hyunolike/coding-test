@@ -87,11 +87,43 @@ print(answer)
 """
 ```
 
-
-
 ## 4. [11718 그대로 출력하기](https://www.acmicpc.net/problem/11718)
+![image](https://user-images.githubusercontent.com/44918665/139562201-a387806e-cd04-478a-baad-840d7d8b584d.png)
+
+### 4.1. 해결과정
+1. 입력이 언제 끝날 지 모르기 때문에 try ~ except 구문을 사용했다.
+2. 입출력을 수행하되, 예외가 발생하면 except 처리로 종료한다.
+
+### 4.2. 소스코드
+```python
+while True:
+    try:
+        a=input()
+        print(a)
+    except:
+        break
+```
+
 ## 5. [11720 숫자의 합](https://www.acmicpc.net/problem/11720)
+![image](https://user-images.githubusercontent.com/44918665/139562224-57ed726a-0d78-43fe-a91e-2b4d0470c7f0.png)
+
+### 5.1. 해결과정
+1. 공백없는 값을 한 문자씩 분리하기 위해 list(map(int, input())함수를 사용했다.
+2. 최종적으로 리스트로 바꾼 뒤, sum()로 결과를 출력했다.
+
+### 5.2. 소스코드
+```python
+n=int(input())
+num=list(map(int, input()))
+print(sum(num))
+```
+
 ## 6. [11721 열 개씩 끊어 출력하기](https://www.acmicpc.net/problem/11721)
+![image](https://user-images.githubusercontent.com/44918665/139562262-f1f1ca78-8c42-433c-98f2-865aa99c4f01.png)
+
+### 6.1. 해결과정
+
+
 ## 7. [1316 그룹 단어 체커](https://www.acmicpc.net/problem/1316)
 ## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
 ## 9. [8958 OX퀴즈](https://www.acmicpc.net/problem/8958)
