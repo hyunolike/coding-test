@@ -45,6 +45,48 @@ print(len(ch))
 ![image](https://user-images.githubusercontent.com/44918665/139561068-2a0f3011-b18d-4c02-9816-a50b2981fd66.png)
 
 ### 3.1. 해결과정
+1. 대소문자를 구분하지 않으므로, 대문자로 통일한다.
+2. 단어를 구성하는 알파벳을 list(set())으로 추린다.
+3. 각 알파벳을 str.count()함수를 사용해 개수를 카운트한다.
+4. 최대값이 1개가 아니라면 ?를 출력한다.
+5. 최대값이 1개라면, 최대값을 갖는 index에 해당하는 문자를 출력한다.
+
+### 3.2. 소스코드
+```
+# https://www.byfuls.com/programming/read?id=49
+inputData = input().upper()
+searchKeys = list(set(inputData))
+ 
+countArr = []
+for key in searchKeys:
+    countArr.append(inputData.count(key))
+ 
+if countArr.count(max(countArr)) > 1:
+    print("?")
+else:
+    print(searchKeys[countArr.index(max(countArr))])
+
+""" another Solution
+from collections import defaultdict
+word=input().upper()
+cnt_dict=defaultdict(int)
+
+for w in word:
+    cnt_dict[w]+=1
+
+answer,value=0,0
+for k,v in cnt_dict.items():
+    if value<v:
+        value=v
+        answer=k
+
+cnt_list=list(cnt_dict.values())
+if cnt_list.count(max(cnt_list))>=2:
+    answer='?'
+print(answer)
+"""
+```
+
 
 
 ## 4. [11718 그대로 출력하기](https://www.acmicpc.net/problem/11718)
