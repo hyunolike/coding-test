@@ -122,9 +122,13 @@ print(sum(num))
 ![image](https://user-images.githubusercontent.com/44918665/139562262-f1f1ca78-8c42-433c-98f2-865aa99c4f01.png)
 
 ### 6.1. 해결과정
-
+1. 10개씩 끊어 출력해야 하므로, 단어를 앞에서부터 10개씩 잘랐다.
+2. 자른 10개 문자를 출력하고, 만약 남은 길이가 10이하라면 반복문을 종료한다.
+3. 남아 있는 문자를 출력한다.
 
 ## 7. [1316 그룹 단어 체커](https://www.acmicpc.net/problem/1316)
+
+
 ## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
 ## 9. [8958 OX퀴즈](https://www.acmicpc.net/problem/8958)
 ## 10. [9012 괄호](https://www.acmicpc.net/problem/9012)
