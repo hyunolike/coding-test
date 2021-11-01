@@ -126,6 +126,18 @@ print(sum(num))
 2. 자른 10개 문자를 출력하고, 만약 남은 길이가 10이하라면 반복문을 종료한다.
 3. 남아 있는 문자를 출력한다.
 
+### 6.2. 소스코드
+```python
+word=input()
+while word:
+    if len(word)<=10:
+        break
+    tmp=word[:10]
+    word=word[10:]
+    print(tmp)
+print(word)
+```
+
 ## 7. [1316 그룹 단어 체커](https://www.acmicpc.net/problem/1316)
 ![image](https://user-images.githubusercontent.com/44918665/139605144-15a7089e-1f7d-455c-948a-8f52d35665d4.png)
 
@@ -139,10 +151,72 @@ print(sum(num))
 - 1번째부터 len(word)까지 word[i] vs word[i-1]로 비교해야 하는 이유
 - 0번째부터 len(word)-1까지 word[i] vs word[i+1]일 경우, i+1번째가 이미 set에 등장했던 문자일 수 있기 때문이다.
 
-## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
+### 7.2. 소스코드
+```python
+n=int(input())
+answer=0
+for _ in range(n):
+    word=input()
+    space=set()
+    flag=True
+    for i in range(1, len(word)):
+        if word[i]!=word[i-1]:
+            if word[i] in space:
+                flag=False
+                break
+            else:
+                space.add(word[i-1])
+    if flag:
+        answer+=1
+print(answer)
+```
 
+## 8. [2941 크로아티아 알파벳](https://www.acmicpc.net/problem/2941)
+![image](https://user-images.githubusercontent.com/44918665/139605659-1ab46d5e-df8f-4fe8-a041-f327e9c71217.png)
+
+### 8.1. 해결과정
+1. 찾아본 좋은 풀이는 '치환'해버리는 것이다.
+2. 파이썬의 replace 함수를 이용해 크로아티아 알파벳을 하나씩 꺼내가며 특정문자로 치환한다.
+3. 치환한 크로아티아 알파벳의 길이를 카운트한다.
+
+- 주의할 점은 'dz='가 'dz'보다 먼저 와야한다.
+- 이유는 dz가 먼저 와버리면, dz=를 의미하는 데 잘못 치환한 것이 된다.
+
+### 8.2. 소스코드
+```python
+# https://ooyoung.tistory.com/74
+
+word=input()
+answer=0
+croatia=['c=','c-','dz=','d-','lj','nj','s=','z=']
+
+for i in croatia:
+    word = word.replace(i, '*')
+print(len(word))
+```
 
 ## 9. [8958 OX퀴즈](https://www.acmicpc.net/problem/8958)
+![image](https://user-images.githubusercontent.com/44918665/139605821-fbf84cb8-ddb9-43ee-bb32-e8ab57701ff2.png)
+
+### 9.1. 해결과정
+1. O를 만나면 score+=1을 한 뒤 total에 더한다.
+2. X를 만나면 score를 0으로 초기화한다.
+
+### 9.2. 소스코드
+```python
+n=int(input())
+for _ in range(n):
+    case=list(map(str, input()))
+    score,total=0,0
+    for c in case:
+        if c=='O':
+            score+=1
+            total+=score
+        else:
+            score=0
+    print(total)
+```
+
 ## 10. [9012 괄호](https://www.acmicpc.net/problem/9012)
 
 
