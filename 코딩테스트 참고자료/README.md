@@ -165,6 +165,7 @@ print(result)
 ```
 
 4. combinations
+
 ```python
 from itertools import combinations
 
@@ -245,3 +246,21 @@ def count_by_range(a, left_value, right_value):
     2. deque.pop(): 오른쪽 pop
     3. deque.append(): 오른쪽 삽입
     4. deque.appendleft(): 왼쪽 삽입
+> deque는 앞뒤 원소 추가, 삭제 모두 복잡도가 O(1)이다.
+
+8. Counter
+- collections 라이브러리의 Counter는 등장 횟수를 세는 기능을 한다.
+
+```python
+from collections import Counter
+
+counter = Counter(['red', 'blue', 'red', 'green', 'blue', 'blue'])
+
+print(counter['blue']) # blue가 등장한 횟수 출력
+print(counter['green']) # green이 등장한 횟수 출력
+print(dict(counter)) # 딕셔너리로 변환: {'red':2, 'blue':3, 'green':1}
+```
+
+> 리스트와 같은 iterable 객체가 주어졌을 때, 객체 내 원소가 몇 번 등장했는지 카운트한다.
+> Counter함수 사용 후, 딕셔너리로 변환할 수 있다.
+
