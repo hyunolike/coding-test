@@ -218,5 +218,37 @@ for _ in range(n):
 ```
 
 ## 10. [9012 괄호](https://www.acmicpc.net/problem/9012)
+![Uploading image.png…]()
+
+### 10.1. 해결과정
+1. (가 나오면 stack에 넣는다.
+2. )가 나오면 stack을 pop한다.
+3. )가 나왔는데 stack이 비어있다면 NO를 출력하고 종료하고 flag를 False로 변경한다.
+4. 위 과정을 끝낸 후, stack이 차있다면 NO를 출력하고 flag를 False로 변경한다.
+5. flag가 True라면 YES를 출력한다.
+
+### 10.2. 소스코드
+```python
+t=int(input())
+for _ in range(t):
+    word=input()
+    stack=[]
+    flag=True
+    for w in word:
+        if w=='(':
+            stack.append(w)
+        else:
+            if stack:
+                stack.pop()
+            else:
+                print('NO')
+                flag=False
+                break
+    if stack:
+        print('NO')
+        flag=False
+    if flag:
+        print('YES')
+```
 
 
