@@ -176,7 +176,7 @@ print(result)
 
 5. heapq
 - heapq는 다익스트라 최단 경로 알고리즘에 사용된다.
-- 또한, 우선순위 기능이 필요한 경우 사용도니다.
+- 또한, 우선순위 기능이 필요한 경우 사용된다.
 
     1. heapq.heappush(): 원소 삽입
     2. heapq.heappop(): 원소 Pop
