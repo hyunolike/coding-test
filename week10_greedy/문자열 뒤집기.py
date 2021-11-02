@@ -31,7 +31,7 @@ print(answer)
 # another solution
 data=input()
 count0=0
-count1=1
+count1=0
 
 # 첫 번째 원소 처리
 if data[0]=='1':
