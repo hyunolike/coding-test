@@ -39,3 +39,15 @@ def solution(lottos, win_nums):
     answer.append(rank[matched])
     
     return answer
+
+def solution(lottos, win_nums):
+    answer=[]
+    best, worst = 0,0
+    
+    for t in lottos:
+        if t in win_nums:
+            worst+=1
+    best=worst+lottos.count(0)
+    tmp=[best,worst]
+    answer=[6 if t<2 else 6-t+1 for t in tmp]
+    return answer
