@@ -1,0 +1,10 @@
+-- 코드를 입력하세요
+SELECT datetime
+from animal_ins
+where datetime = (select max(datetime) from animal_ins);
+
+-- 코드를 입력하세요
+SELECT DATETIME
+FROM ANIMAL_INS
+ORDER BY DATETIME DESC
+LIMIT 1;
