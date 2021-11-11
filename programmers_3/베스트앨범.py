@@ -23,3 +23,32 @@ def solution(genres, plays):
     
     return answer
 
+
+# another solution
+from collections import defaultdict
+
+def solution(genres, plays):
+    answer=[]
+    kv=defaultdict(int)
+    
+    for genre, play in zip(genres,plays):
+        kv[genre]+=play
+    
+    kv=list(kv.items())
+    kv.sort(key=lambda x: x[1], reverse=True)
+    order=[k for k,v in kv]
+    
+    tmp=defaultdict(list)
+    for i in range(len(genres)):
+        tmp[genres[i]].append([plays[i],i])
+    
+    for k in tmp.keys():
+        tmp[k].sort(key=lambda x:(x[0],-x[1]), reverse=True)
+        tmp[k]=tmp[k][:2]
+    
+    for o in order:
+        t=tmp[o][:2]
+        for play, idx in t:
+            answer.append(idx)
+    
+    return answer

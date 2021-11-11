@@ -1,0 +1,9 @@
+SELECT ANIMAL_ID, NAME, DATE_FORMAT(DATETIME, '%Y-%m-%d')
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID;
+
+# MYSQL에서 DATE_FORMAT() 사용하기
+# DATETIME -> DATE 형식으로 변경. 시간 삭제
+# %Y: 4자리 연도 출력, %m: 2자리 월 출력, %d: 2자리 날짜 출력
+# %i: 0~59분, %s: 0~59초, %w: 0은 Sunday~ 6은 Saturday, %W: Sunday~Saturday 영문 출력
+# %Y(4자리 연도), %y(2자리 연도), %m(월), %d(일), %H(24시간), %h(12시간), %i, %s가 있습니다.
