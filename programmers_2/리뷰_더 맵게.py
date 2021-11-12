@@ -29,3 +29,23 @@ def solution(scoville, K):
             return answer
     
     return -1
+
+# another solution
+
+import heapq
+
+def solution(scoville, K):
+    answer = 0
+    heapq.heapify(scoville)
+    
+    while scoville[0]<K:
+        if len(scoville)==1:
+            answer=-1
+            break
+        food1=heapq.heappop(scoville)
+        food2=heapq.heappop(scoville)
+        scov=food1+food2*2
+        heapq.heappush(scoville, scov)
+        answer+=1
+    
+    return answer
