@@ -14,7 +14,7 @@ def solution(genres, plays):
         pdict[genres[i]].append([i, plays[i]])
     
     for i in range(len(genres)):
-        pdict[genres[i]] = sorted(pdict[genres[i]], key=lambda x: x[1], reverse=True)
+        pdict[genres[i]] = sorted(pdict[genres[i]], key=lambda x: (-x[1], x[0]), reverse=False)
     
     for genre in gdict:
         tmp = pdict[genre][:2]

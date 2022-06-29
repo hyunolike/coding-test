@@ -3,7 +3,6 @@ from collections import deque
 m,n=map(int, input().split())
 graph=[list(map(int, input().split())) for _ in range(n)]
 visited=[[0]*m for _ in range(n)]
-answer=0
 dx,dy=[0,0,-1,1],[-1,1,0,0]
 q=deque()
 
