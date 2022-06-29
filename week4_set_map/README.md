@@ -12,21 +12,20 @@
 1. 옷을 입을 수 있는 모든 경우의 수를 구하되, 알몸인 경우를 제외하는 것이 핵심이다.
 2. 따라서 (의상종류별 개수+1)한 값을 누적해서 곱해나간 뒤 1을 감소시킨다.
 ```python
+from collections import defaultdict
+
 test = int(input())
 
 for _ in range(test):
-    data = dict()
     n = int(input())
+    data = defaultdict(list)
     cnt = 1
-
+    
     for _ in range(n):
         name, kind = input().split()
-        if kind not in data.keys():
-            name = [name]
-            data[kind] = name
-        else:
-            data[kind].append(name)
-    for k, v in data.items(): 
+        data[kind].append(name)
+    
+    for k, v in data.items():
         cnt *= len(v)+1
     
     print(cnt-1)
